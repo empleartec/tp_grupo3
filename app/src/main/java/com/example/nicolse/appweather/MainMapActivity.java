@@ -10,6 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 //clave de la api de google: AIzaSyB27CjmPkuR-YWfYuffcEmK23EcvWAYWZo
 
 
@@ -22,7 +25,6 @@ public class MainMapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_map);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarWeather);
         setSupportActionBar(myToolbar);
-
 
     }
 
