@@ -1,10 +1,13 @@
 package com.example.nicolse.appweather;
 
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-public class FavouriteActivity extends AppCompatActivity {
+
+public class FavouriteActivity extends AppCompatActivity{
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,8 +17,6 @@ public class FavouriteActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarFavourite);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ////cocococococo
-        System.out.print("Funcionaaaaaa");
-        System.out.print("Funcionaaaaaa");
+        System.out.print("holaaa");
     }
 }
