@@ -14,6 +14,7 @@ public class FavouriteActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarFavourite);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ////
+        ////cocococococo
+        System.out.print("Funcionaaaaaa");
     }
 }
