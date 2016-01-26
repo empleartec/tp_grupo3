@@ -16,5 +16,6 @@ public class FavouriteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ////cocococococo
         System.out.print("Funcionaaaaaa");
+        System.out.print("Funcionaaaaaa");
     }
 }
