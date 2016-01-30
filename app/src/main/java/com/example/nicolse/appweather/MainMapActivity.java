@@ -13,7 +13,9 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
+
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,7 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 //clave de la api de google: AIzaSyB27CjmPkuR-YWfYuffcEmK23EcvWAYWZo
 
 
-public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback,GetPlacesTask.GetPlacesCallback{
     //build gradle(antes): compile 'com.google.android.gms:play-services-maps:8.1.0'
     GoogleMap mapa;
 
@@ -60,15 +62,13 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
-                        Toast.makeText(MainMapActivity.this, "PEPEPEEEPEPE",
-                                Toast.LENGTH_SHORT).show();
+                        new GetPlacesTask(MainMapActivity.this,MainMapActivity.this).execute();
                         return false;
                     }
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        Toast.makeText(MainMapActivity.this, newText,
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainMapActivity.this, newText, Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 }
@@ -98,5 +98,10 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         LatLng unknown = new LatLng(-34.76783656, -70);
         mapa.addMarker(new MarkerOptions().position(unknown).title("Marker in LA CORDILLERA"));
         mapa.moveCamera(CameraUpdateFactory.newLatLng(unknown));
+    }
+
+    @Override
+    public void mostrarToast(String algo) {
+        Toast.makeText(this, algo, Toast.LENGTH_SHORT).show();
     }
 }
