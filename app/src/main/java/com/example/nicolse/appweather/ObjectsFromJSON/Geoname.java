@@ -4,7 +4,17 @@ package com.example.nicolse.appweather.ObjectsFromJSON;
  * Created by NicolásE on 29/01/2016.
  */
 public class Geoname {
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public void setAdminName1(String adminName1) {
+        this.adminName1 = adminName1;
+    }
 
     private String adminCode1;
 

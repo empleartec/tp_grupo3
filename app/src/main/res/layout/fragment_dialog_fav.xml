@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_star"
+        android:layout_alignTop="@+id/desc_asc"
+        android:layout_toStartOf="@+id/desc_asc"
+        android:layout_alignBottom="@+id/desc_asc"
+        android:layout_toLeftOf="@+id/desc_asc" />
+
+
+    <TextView
+        android:id="@+id/desc_asc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you want to add this place to favourites?"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+
+    <Button
+        android:id="@+id/noButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="no"
+        android:layout_alignBaseline="@+id/yesButton"
+        android:layout_alignBottom="@+id/yesButton"
+        android:layout_toRightOf="@+id/auxView"
+        android:layout_toEndOf="@+id/auxView" />
+
+    <View
+        android:id="@+id/auxView"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:background="@color/colorPrimary"
+
+        android:layout_above="@+id/noButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/yesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="yes"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/desc_asc"
+        android:layout_toLeftOf="@+id/auxView"
+        android:layout_toStartOf="@+id/auxView" />
+
+
+
+
+</RelativeLayout>

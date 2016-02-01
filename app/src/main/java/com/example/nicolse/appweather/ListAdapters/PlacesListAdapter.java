@@ -47,20 +47,20 @@ public class PlacesListAdapter extends BaseAdapter {
         View layout = LayoutInflater.from(context).inflate(R.layout.list_view_places,parent,false);
         TextView textPlaceCountry= (TextView) layout.findViewById(R.id.place_country);
         TextView textPlaceProvState= (TextView) layout.findViewById(R.id.place_prov_state);
-        final TextView textPlaceCity= (TextView) layout.findViewById(R.id.place_city);
+         TextView textPlaceCity= (TextView) layout.findViewById(R.id.place_city);
         final Geoname geoname= (Geoname) getItem(position);
-        textPlaceCountry.setText(geoname.getCountryName());
-        textPlaceProvState.setText(geoname.getAdminName1());
-        textPlaceCity.setText(geoname.getName());
+        textPlaceCountry.setText(/*geoname.getCountryName()*/"sds");
+        textPlaceProvState.setText(/*geoname.getAdminName1()*/"vbvb");
+        textPlaceCity.setText(/*geoname.getName()*/"sdas");
 
         layout.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
-                                          Toast.makeText(context,textPlaceCity.getText(), Toast.LENGTH_SHORT).show();
+                                          Toast.makeText(context,"hola", Toast.LENGTH_SHORT).show();
                                       }
                                   }
         );
 
-        return null;
+        return layout;
     }
 }
