@@ -23,7 +23,17 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
+<!--
+    <fragment
+        android:id="@+id/list"
+        android:layout_below="@+id/toolbarWeather"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:name="com.example.nicolse.appweather.Fragments.ListPlacesFragment"
+        />
+-->
     <RelativeLayout
+
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

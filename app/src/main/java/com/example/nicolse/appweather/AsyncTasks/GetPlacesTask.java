@@ -19,7 +19,9 @@ import java.util.List;
 /**
  * Created by NicolásE on 29/01/2016.
  */
-public class GetPlacesTask extends AsyncTask<String, String, String> {
+
+//TODO:http://where.yahooapis.com/v1/states/AR?format=json&appid=dj0yJmk9UzhtZG5VVHpBSnJxJmQ9WVdrOWJHdERZWEE1TnpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD02NQ--
+public class GetPlacesTask extends AsyncTask<String, String, String>  {
 
 
     private Context context;
@@ -35,9 +37,9 @@ public class GetPlacesTask extends AsyncTask<String, String, String> {
 
 
     public interface GetPlacesCallback {
-        public void mostrarToast(String algo);
 
-        public void changeFragment();
+        public void updateListPlaces(List<Geoname> listGeonames);
+
     }
 
 
@@ -83,11 +85,10 @@ public class GetPlacesTask extends AsyncTask<String, String, String> {
             int totalResultCounts = Integer.parseInt(resultGeonames.getTotalResultsCount());
             List<Geoname> listGeonames= resultGeonames.getGeonames();//TODO:la lista para pasarlo al list adapter
            // callback.mostrarToast(resultGeonames.getTotalResultsCount());
-            callback.mostrarToast(String.valueOf(listGeonames.size()));
+            callback.updateListPlaces(listGeonames);
             // PlacesListAdapter adapter=new PlacesListAdapter( this.context,listGeonames);
            // listView.setAdapter(adapter);//esta listview viene del activity
 
-            callback.changeFragment();
 
           /*  Fragment newFragment = new ListPlacesFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();

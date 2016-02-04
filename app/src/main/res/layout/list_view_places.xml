@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,17 +8,30 @@
     <TextView
         android:id="@+id/place_country"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/place_prov_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="none"/>
 
     <TextView
         android:id="@+id/place_city"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="none"
+        android:layout_marginLeft="106dp"
+        android:layout_marginStart="106dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/place_country"
+        android:layout_toEndOf="@+id/place_country" />
+
+    <TextView
+        android:id="@+id/place_fcl_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="none"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="89dp"
+        android:layout_marginEnd="89dp" />
 
 
-</LinearLayout>
+</RelativeLayout>

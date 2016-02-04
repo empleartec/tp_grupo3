@@ -9,24 +9,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+
 import com.example.nicolse.appweather.ListAdapters.PlacesListAdapter;
 import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
 import com.example.nicolse.appweather.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask.GetPlacesCallback;
 
 /**
  * Created by NicolásE on 29/01/2016.
  */
-public class ListPlacesFragment extends Fragment {
+public class ListPlacesFragment extends Fragment implements GetPlacesCallback {
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_places,container,false);
-        List <Geoname> lista= new ArrayList<Geoname>();
+       /* List <Geoname> lista= new ArrayList<Geoname>();
         Geoname g1=new Geoname();
         g1.setName("pepe");
         g1.setCountryName("argento");
@@ -62,7 +64,24 @@ public class ListPlacesFragment extends Fragment {
 
         PlacesListAdapter placesListAdapter = new PlacesListAdapter(getContext(),lista);
         ListView miLista = (ListView) view.findViewById(R.id.list_view_places);
-        miLista.setAdapter(placesListAdapter);
+        miLista.setAdapter(placesListAdapter);*/
         return view;
     }
+
+    @Override
+    public void updateListPlaces(List<Geoname> listGeonames) {
+        PlacesListAdapter placesListAdapter = new PlacesListAdapter(getContext(),listGeonames);
+
+        View view = getView() ;
+
+       if(view==null){
+           System.out.println("EL GETVIRE() RETORNA UN NULL");
+           //TODO : cuando se vuelve del otra activity al main como que se debe volver a instanciar el fragment o la lista
+       }
+
+        ListView miLista = (ListView)  view.findViewById(R.id.list_view_places);
+        miLista.setAdapter(placesListAdapter);
+    }
+
+
 }
