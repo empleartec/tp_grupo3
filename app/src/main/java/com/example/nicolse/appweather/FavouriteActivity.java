@@ -21,3 +21,6 @@ public class FavouriteActivity extends AppCompatActivity{
         System.out.print("myToolbar.getTitle()");
     }
 }
+
+//clave api bruno: AIzaSyAVzUn-MJf5tfVRm7G_2HB5eVU6wMBoJZ4
+//clave api nico: AIzaSyB27CjmPkuR-YWfYuffcEmK23EcvWAYWZo
