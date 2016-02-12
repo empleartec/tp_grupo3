@@ -21,7 +21,7 @@ import java.net.URLConnection;
 /**
  * Created by NicolásE on 01/02/2016.
  */
-public class GetWeatherTask extends AsyncTask<String,String, String> {
+public class GetWeatherTask extends AsyncTask<String, String, String> {
 
 
     private WheaterTask context;

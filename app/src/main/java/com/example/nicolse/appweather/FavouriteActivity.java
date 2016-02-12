@@ -31,5 +31,6 @@ public class FavouriteActivity extends AppCompatActivity {
     }
 */
 
-//clave api bruno: AIzaSyAVzUn-MJf5tfVRm7G_2HB5eVU6wMBoJZ4
+//clave api bruno pc: AIzaSyAVzUn-MJf5tfVRm7G_2HB5eVU6wMBoJZ4
+//clave api bruno noteb: AIzaSyDVt1sawxkq4mcxJeuRkATaCVNJJc-zZtE
 //clave api nico: AIzaSyB27CjmPkuR-YWfYuffcEmK23EcvWAYWZo
