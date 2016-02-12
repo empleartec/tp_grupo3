@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_forecast"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    >
+
+
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_toRightOf="@+id/image_weather_forecast"
+        android:background="@color/colorLineBlack"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"/>
+
+
+
+    <ImageView
+        android:id="@+id/image_weather_forecast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_aux" />
+
+
+    <TextView
+        android:layout_below="@+id/image_weather_forecast"
+        android:id="@+id/txt_forecast_date_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/none"/>
+
+
+
+    <TextView
+        android:id="@+id/txt_forecast_text_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/none"
+        android:layout_toRightOf="@+id/view_line"
+        />
+
+
+
+    <TextView
+        android:layout_below="@+id/txt_forecast_text_frag"
+        android:layout_toRightOf="@+id/view_line"
+        android:id="@+id/txt_forecast_high_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/none"/>
+
+    <TextView
+        android:layout_toRightOf="@id/view_line"
+        android:layout_below="@+id/txt_forecast_high_frag"
+        android:id="@+id/txt_forecast_low_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/none"/>
+
+
+
+</RelativeLayout>

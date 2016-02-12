@@ -24,10 +24,16 @@ import android.widget.Toast;
 
 
 import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask;
+import com.example.nicolse.appweather.AsyncTasks.GetWeatherTask;
 import com.example.nicolse.appweather.Fragments.DialogFavFragment;
 import com.example.nicolse.appweather.Fragments.ListPlacesFragment;
+import com.example.nicolse.appweather.ObjectsFromJSON.Channel;
+import com.example.nicolse.appweather.ObjectsFromJSON.Condition;
 import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
 import com.example.nicolse.appweather.InfoAdapters.WeatherInfoAdapter;
+import com.example.nicolse.appweather.ObjectsFromJSON.Item;
+import com.example.nicolse.appweather.ObjectsFromJSON.ResultWeatherInfo;
+import com.example.nicolse.appweather.ObjectsFromJSON.Results;
 import com.example.nicolse.appweather.entities.ForecastParcelable;
 import com.example.nicolse.appweather.entities.WeatherInfoParcelable;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -51,13 +57,13 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 //clave de la api de google: AIzaSyB27CjmPkuR-YWfYuffcEmK23EcvWAYWZo
 
 
-public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback, GetPlacesTask.GetPlacesCallback ,OnInfoWindowClickListener {
+public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback, GetPlacesTask.GetPlacesCallback ,OnInfoWindowClickListener,GetWeatherTask.WheaterTask {
     //build gradle(antes): compile 'com.google.android.gms:play-services-maps:8.1.0'
     private GoogleMap mapa;
     private FragmentManager fragmentManager;
     private SupportMapFragment supportMapFragment;
     private ListPlacesFragment listPlacesFragment;
-
+    private ResultWeatherInfo resultWeatherInfoSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +72,15 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarWeather);
         setSupportActionBar(myToolbar);
 
-        FragmentManager fragmentManagerAux;
+
+
+        if (Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
+            System.out.println("PORTRAID");
+        }
+        if (Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation) {
+            System.out.println("LANDSCAPE");
+        }
+     /*   FragmentManager fragmentManagerAux;
         fragmentManagerAux = fragmentManager;
 
         fragmentManager = getSupportFragmentManager();
@@ -77,6 +91,11 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         supportMapFragment.getMapAsync(this);
       //  mapa.setOnMarkerClickListener(this);  //seteamos el listener VER-->onMarkerClick(Marker marker)
 
+
+
+        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||");
+        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||");
+        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||");
 
         listPlacesFragment = new ListPlacesFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -91,7 +110,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         if (Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation) {
             System.out.println("LANDSCAPE");
         }
-
+*/
 
     }
 
@@ -130,9 +149,6 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
                 dialogFavFragment.show(fragmentManager, "Sample Fragment");
                 doSave();
                 doLoad();*/
-
-
-
 
 
             }
@@ -176,7 +192,12 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         mapa = googleMap;
         mapa.setOnInfoWindowClickListener(this);
-        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this));
+        Condition condition = new Condition();
+        condition.setText("N/A");
+        condition.setCode("N/A");
+        condition.setDate("N/A");
+        condition.setTemp("N/A");
+        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this,condition));
         LatLng unknown = new LatLng(-31.79765, -65.00312);
 
 
@@ -192,7 +213,25 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        fragmentManager = getSupportFragmentManager();
+        supportMapFragment = (SupportMapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
+        mapa = supportMapFragment.getMap();
+        mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mapa.setMyLocationEnabled(true);
+        supportMapFragment.getMapAsync(this);
+      //  mapa.setOnMarkerClickListener(this);  //seteamos el listener VER-->onMarkerClick(Marker marker)
+
+        listPlacesFragment = new ListPlacesFragment();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container, listPlacesFragment);
+        fragmentTransaction.hide(listPlacesFragment);
+        fragmentTransaction.commit();
+
+    }
 
     public void doSave() {
         SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
@@ -312,36 +351,47 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Intent intent = new Intent(this,PlaceActivity.class);
+        Intent intent = new Intent(this,ForecastsActivity.class);
+
         WeatherInfoParcelable weatherInfoParcelable =new WeatherInfoParcelable();
         weatherInfoParcelable.setIcon_id(R.drawable.icon_aux);
-        weatherInfoParcelable.setDate("1992/05/01");
-        weatherInfoParcelable.setCountry("Argentina");
-        weatherInfoParcelable.setState("Buenos Aires");
-
-        ForecastParcelable forecastParcelable= new ForecastParcelable();
-        forecastParcelable.setCode("30");
-        forecastParcelable.setDate("1992");
-        forecastParcelable.setDay("mon");
-        forecastParcelable.setHigh("34");
-        forecastParcelable.setLow("21");
-        forecastParcelable.setText("cloudy");
-
-
-        ForecastParcelable forecastParcelable1=new ForecastParcelable();
-        forecastParcelable1.setCode("21");
-        forecastParcelable1.setDate("1995");
-        forecastParcelable1.setDay("sun");
-        forecastParcelable1.setHigh("21");
-        forecastParcelable1.setLow("19");
-        forecastParcelable1.setText("rainy");
-
-
-        ArrayList <ForecastParcelable> list=new ArrayList<ForecastParcelable>();
-            list.add(forecastParcelable);
-           list.add(forecastParcelable1);
-        weatherInfoParcelable.setForecasts(list);
+        weatherInfoParcelable.setDate(resultWeatherInfoSelected.getQuery().getResults().getChannel().getItem().getCondition().getDate());
+        weatherInfoParcelable.setCountry(resultWeatherInfoSelected.getQuery().getResults().getChannel().getLocation().getCountry());
+        weatherInfoParcelable.setState(resultWeatherInfoSelected.getQuery().getResults().getChannel().getLocation().getCity());
+        weatherInfoParcelable.setForecasts(resultWeatherInfoSelected.getQuery().getResults().getChannel().getItem().getForecast());
         intent.putExtra("infoWeather", weatherInfoParcelable);
         startActivity(intent);
+    }
+
+    @Override
+    public void updateWeatherInMap(ResultWeatherInfo resultWeatherInfo) {
+        resultWeatherInfoSelected=resultWeatherInfo;
+     Results results=resultWeatherInfo.getQuery().getResults();
+      Channel channel= results.getChannel();
+       Item item= channel.getItem();
+        Condition condition=item.getCondition();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.hide(listPlacesFragment);
+        fragmentTransaction.show(supportMapFragment);
+        ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
+        imageButton.setVisibility(View.VISIBLE);
+        fragmentTransaction.commit();
+        Toast.makeText(this,"Latitude:"+item.getLatitude()+"Longitude:"+item.getLongitude(),Toast.LENGTH_SHORT).show();
+
+
+
+        mapa.setOnInfoWindowClickListener(this);
+        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this,condition));
+        LatLng unknown = new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
+        Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_aux);
+        // Resize the bitmap to 150x100 (width x height)
+        Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 60, 60, true);
+        // Loads the resized Bitmap into an ImageView
+        mapa.addMarker(new MarkerOptions().position(unknown).icon(BitmapDescriptorFactory.fromBitmap(bMapScaled)));
+        //   mapa.setOn
+        mapa.moveCamera(CameraUpdateFactory.newLatLng(unknown));
+        mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(unknown, 10));
+
+
     }
 }

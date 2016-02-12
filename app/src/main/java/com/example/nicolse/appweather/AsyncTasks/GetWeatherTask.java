@@ -1,5 +1,6 @@
 package com.example.nicolse.appweather.AsyncTasks;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -23,12 +24,30 @@ import java.net.URLConnection;
 public class GetWeatherTask extends AsyncTask<String,String, String> {
 
 
+    private WheaterTask context;
+
     private WeatherInfoParcelable weatherInfo;
 
   /*  public GetWeatherTask(WeatherInfoParcelable weatherInfo){
         super();
         this.weatherInfo= weatherInfo ;
     }*/
+
+
+    public GetWeatherTask(Context context) {
+        super();
+
+        if(context instanceof WheaterTask){
+            this.context = (WheaterTask) context;
+        }
+
+
+    }
+
+
+    public interface WheaterTask{
+         void updateWeatherInMap(ResultWeatherInfo resultWeatherInfo);
+    }
 
     @Override
     protected String doInBackground(String... locations) {
@@ -70,6 +89,7 @@ public class GetWeatherTask extends AsyncTask<String,String, String> {
         ////intentamos hacer una clase a partir del json
         Gson gson = new Gson();
         ResultWeatherInfo resultWeatherInfo = gson.fromJson(json, ResultWeatherInfo.class);
+        context.updateWeatherInMap(resultWeatherInfo);
         System.out.println("<TITULO>::::"+resultWeatherInfo.getQuery().getResults().getChannel().getItem().getTitle());
 
     }

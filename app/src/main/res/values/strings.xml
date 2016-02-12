@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AppWeather</string>
     <string name="title_activity_favourite">FavouriteActivity</string>
+    <string name="none">N/Ay</string>
 </resources>

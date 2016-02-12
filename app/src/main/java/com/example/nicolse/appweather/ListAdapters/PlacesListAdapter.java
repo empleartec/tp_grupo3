@@ -60,8 +60,8 @@ public class PlacesListAdapter extends BaseAdapter {
         layout.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
-                                          Toast.makeText(context,"hola", Toast.LENGTH_SHORT).show();
-                                          new GetWeatherTask().execute("Buenos Aires,AR");
+                                          Toast.makeText(context, "hola", Toast.LENGTH_SHORT).show();
+                                          new GetWeatherTask(context).execute(/*"Buenos Aires,AR"*/"tandil, argentina");
                                       }
                                   }
         );
