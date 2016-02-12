@@ -86,7 +86,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
 
         if (Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
-            System.out.println("PORTRAID");
+            System.out.println("PORTRAIT");
         }
         if (Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation) {
             System.out.println("LANDSCAPE");

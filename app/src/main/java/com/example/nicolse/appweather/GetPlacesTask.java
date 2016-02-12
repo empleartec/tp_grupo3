@@ -86,10 +86,10 @@ public class GetPlacesTask extends AsyncTask<String, String, String> {
 
             ResultGeonames resultGeonames = gson.fromJson(json, ResultGeonames.class);
             int totalResultCounts = Integer.parseInt(resultGeonames.getTotalResultsCount());
-            List<Geoname> listGeonames= resultGeonames.getGeonames();//TODO:la lista para pasarlo al list adapter
+            List<Geoname> listGeonames = resultGeonames.getGeonames();//TODO:la lista para pasarlo al list adapter
            // callback.mostrarToast(resultGeonames.getTotalResultsCount());
            // callback.mostrarToast(String.valueOf(listGeonames.size()));
-            // PlacesListAdapter adapter=new PlacesListAdapter( this.context,listGeonames);
+            // PlacesListAdapter adapter = new PlacesListAdapter( this.context,listGeonames);
            // listView.setAdapter(adapter);//esta listview viene del activity
 
 

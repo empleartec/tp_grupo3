@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">AppWeather</string>
-    <string name="title_activity_favourite">FavouriteActivity</string>
+    <string name="title_activity_favourite">Favourites</string>
 </resources>

@@ -20,7 +20,7 @@ private Context context;
 
    public  WeatherInfoAdapter(Context context){
        super();
-        this.context=context;
+        this.context = context;
     }
 
     // Use default InfoWindow frame
@@ -34,10 +34,10 @@ private Context context;
     @Override
     public View getInfoContents(Marker marker) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v= inflater.inflate(R.layout.weather_info,null);
-        TextView textTemp= (TextView) v.findViewById(R.id.txt_infoWeather_temp);
-        TextView textWeather= (TextView) v.findViewById(R.id.txt_infoWeather_weather);
-        TextView textDesc= (TextView) v.findViewById(R.id.txt_infoWeather_desc);
+        View v = inflater.inflate(R.layout.weather_info, null);
+        TextView textTemp = (TextView) v.findViewById(R.id.txt_infoWeather_temp);
+        TextView textWeather = (TextView) v.findViewById(R.id.txt_infoWeather_weather);
+        TextView textDesc = (TextView) v.findViewById(R.id.txt_infoWeather_desc);
         return v;
     }
 
