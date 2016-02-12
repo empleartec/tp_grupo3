@@ -44,6 +44,7 @@ public class WeatherInfoAdapter implements GoogleMap.InfoWindowAdapter {
         textTemp.setText(condition.getTemp());
         textWeather.setText(condition.getText());
         textDesc.setText(condition.getDate());
+
         return v;
     }
 
