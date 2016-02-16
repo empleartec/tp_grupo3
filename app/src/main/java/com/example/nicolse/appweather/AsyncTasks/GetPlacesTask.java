@@ -47,8 +47,8 @@ public class GetPlacesTask extends AsyncTask<String, String, String>  {
 
     @Override
     protected String doInBackground(String... placeString) {
-        //  String place = placeString[0];
-        String endpoint = "http://where.yahooapis.com/v1/places$and(.q(potosi),.type(7));count=0?format=json&appid=dj0yJmk9UzhtZG5VVHpBSnJxJmQ9WVdrOWJHdERZWEE1TnpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD02NQ--";
+        String place = placeString[0];
+        String endpoint = "http://where.yahooapis.com/v1/places$and(.q(" + place + "),.type(7));count=0?format=json&appid=dj0yJmk9UzhtZG5VVHpBSnJxJmQ9WVdrOWJHdERZWEE1TnpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD02NQ--";
         try {
             URL url = new URL(endpoint);
             URLConnection connection = url.openConnection();

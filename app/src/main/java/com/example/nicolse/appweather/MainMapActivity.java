@@ -164,7 +164,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
-                        new GetPlacesTask(MainMapActivity.this, MainMapActivity.this).execute();
+                        new GetPlacesTask(MainMapActivity.this, MainMapActivity.this).execute(query);
                         return false;
                     }
 

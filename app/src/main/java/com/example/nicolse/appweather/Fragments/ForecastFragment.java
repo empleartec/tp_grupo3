@@ -47,6 +47,7 @@ public class ForecastFragment extends Fragment {
 
 
         ImageView imageWeather=(ImageView) view.findViewById(R.id.image_weather_forecast);
+
         int resourceId = getResources().getIdentifier("drawable/icon_weather_" + forecastParcelable.getCode(), null, getActivity().getPackageName());
         Drawable weatherImageDrawable = getResources().getDrawable(resourceId);
         imageWeather.setImageDrawable(weatherImageDrawable);
