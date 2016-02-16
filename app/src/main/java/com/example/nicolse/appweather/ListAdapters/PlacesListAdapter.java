@@ -1,7 +1,6 @@
 package com.example.nicolse.appweather.ListAdapters;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.nicolse.appweather.AsyncTasks.GetWeatherTask;
 import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
+import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
 import com.example.nicolse.appweather.R;
 
 import java.util.List;
@@ -22,26 +22,26 @@ public class PlacesListAdapter extends BaseAdapter {
 
     private Context context;
 
-    private List<Geoname> listGeonames;
+    private List<PlaceYahoo> listPlaces;
 
-    public PlacesListAdapter(Context context, List<Geoname> listGeonames){
+    public PlacesListAdapter(Context context, List<PlaceYahoo> listPlaces){
         this.context=context;
-        this.listGeonames=listGeonames;
+        this.listPlaces =listPlaces;
     }
 
     @Override
     public int getCount() {
-        return listGeonames.size();
+        return listPlaces.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return listGeonames.get(position);
+        return listPlaces.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return listGeonames.get(position).hashCode();
+        return listPlaces.get(position).hashCode();
     }
 
     @Override
@@ -51,17 +51,16 @@ public class PlacesListAdapter extends BaseAdapter {
          TextView textPlaceCity= (TextView) layout.findViewById(R.id.place_city);
         TextView textPlaceFclName= (TextView) layout.findViewById(R.id.place_fcl_name);
 
-        final Geoname geoname= (Geoname) getItem(position);
-        textPlaceCountry.setText(geoname.getCountryName());
-        textPlaceCity.setText(geoname.getName());
-        textPlaceFclName.setText(geoname.getFclName());
-
+        final PlaceYahoo place= (PlaceYahoo) getItem(position);
+        textPlaceCountry.setText(place.getCountry());
+        textPlaceCity.setText(place.getName());
+        textPlaceFclName.setText(String.valueOf(place.getAdmin1()+","+place.getAdmin2()));
 
         layout.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
                                           Toast.makeText(context, "hola", Toast.LENGTH_SHORT).show();
-                                          new GetWeatherTask(context).execute(/*"Buenos Aires,AR"*/"tandil, argentina");
+                                          new GetWeatherTask(context).execute(/*"Buenos Aires,AR"*/place.getName()+","+place.getCountry());
                                       }
                                   }
         );

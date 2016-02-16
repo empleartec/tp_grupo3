@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
+import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
 import com.example.nicolse.appweather.ObjectsFromJSON.ResultGeonames;
 
+import com.example.nicolse.appweather.ObjectsFromJSON.ResultPlacesYahoo;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -38,7 +40,7 @@ public class GetPlacesTask extends AsyncTask<String, String, String>  {
 
     public interface GetPlacesCallback {
 
-        public void updateListPlaces(List<Geoname> listGeonames);
+        public void updateListPlaces(List<PlaceYahoo> listGeonames);
 
     }
 
@@ -46,7 +48,7 @@ public class GetPlacesTask extends AsyncTask<String, String, String>  {
     @Override
     protected String doInBackground(String... placeString) {
         //  String place = placeString[0];
-        String endpoint = "http://api.geonames.org/searchJSON?name=argentina&maxRows=5&username=nikoLedesma";
+        String endpoint = "http://where.yahooapis.com/v1/places$and(.q(potosi),.type(7));count=0?format=json&appid=dj0yJmk9UzhtZG5VVHpBSnJxJmQ9WVdrOWJHdERZWEE1TnpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD02NQ--";
         try {
             URL url = new URL(endpoint);
             URLConnection connection = url.openConnection();
@@ -81,11 +83,11 @@ public class GetPlacesTask extends AsyncTask<String, String, String>  {
 
         if (json != null) {
 
-            ResultGeonames resultGeonames = gson.fromJson(json, ResultGeonames.class);
-            int totalResultCounts = Integer.parseInt(resultGeonames.getTotalResultsCount());
-            List<Geoname> listGeonames= resultGeonames.getGeonames();//TODO:la lista para pasarlo al list adapter
+            ResultPlacesYahoo resultPlacesYahoo = gson.fromJson(json, ResultPlacesYahoo.class);
+          //  int totalResultCounts = Integer.parseInt(resultGeonames.getTotalResultsCount());
+            List<PlaceYahoo> listPlaces= resultPlacesYahoo.getPlaces().getPlace();//TODO:la lista para pasarlo al list adapter
            // callback.mostrarToast(resultGeonames.getTotalResultsCount());
-            callback.updateListPlaces(listGeonames);
+            callback.updateListPlaces(listPlaces);
             // PlacesListAdapter adapter=new PlacesListAdapter( this.context,listGeonames);
            // listView.setAdapter(adapter);//esta listview viene del activity
 

@@ -32,6 +32,7 @@ import com.example.nicolse.appweather.ObjectsFromJSON.Condition;
 import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
 import com.example.nicolse.appweather.InfoAdapters.WeatherInfoAdapter;
 import com.example.nicolse.appweather.ObjectsFromJSON.Item;
+import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
 import com.example.nicolse.appweather.ObjectsFromJSON.ResultWeatherInfo;
 import com.example.nicolse.appweather.ObjectsFromJSON.Results;
 import com.example.nicolse.appweather.entities.ForecastParcelable;
@@ -71,7 +72,12 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         setContentView(R.layout.activity_main_map);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarWeather);
         setSupportActionBar(myToolbar);
-
+        fragmentManager = getSupportFragmentManager();
+        supportMapFragment = (SupportMapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
+        mapa = supportMapFragment.getMap();
+        mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mapa.setMyLocationEnabled(true);
+        supportMapFragment.getMapAsync(this);
 
 
         if (Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
@@ -218,11 +224,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         super.onResume();
 
         fragmentManager = getSupportFragmentManager();
-        supportMapFragment = (SupportMapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
-        mapa = supportMapFragment.getMap();
-        mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mapa.setMyLocationEnabled(true);
-        supportMapFragment.getMapAsync(this);
+
       //  mapa.setOnMarkerClickListener(this);  //seteamos el listener VER-->onMarkerClick(Marker marker)
 
         listPlacesFragment = new ListPlacesFragment();
@@ -338,14 +340,14 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     @Override
-    public void updateListPlaces(List<Geoname> listGeonames) {
+    public void updateListPlaces(List<PlaceYahoo> listPlaces) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.hide(supportMapFragment);
         fragmentTransaction.show(listPlacesFragment);
         ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
         imageButton.setVisibility(View.INVISIBLE);
         fragmentTransaction.commit();
-        listPlacesFragment.updateListPlaces(listGeonames);
+        listPlacesFragment.updateListPlaces(listPlaces);
         //listPlacesFragment;
     }
 
@@ -354,7 +356,8 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         Intent intent = new Intent(this,ForecastsActivity.class);
 
         WeatherInfoParcelable weatherInfoParcelable =new WeatherInfoParcelable();
-        weatherInfoParcelable.setIcon_id(R.drawable.icon_aux);
+        int iconId = getResources().getIdentifier("drawable/icon_weather_" + resultWeatherInfoSelected.getQuery().getResults().getChannel().getItem().getCondition().getCode(), null, getPackageName());
+        weatherInfoParcelable.setIcon_id(iconId);
         weatherInfoParcelable.setDate(resultWeatherInfoSelected.getQuery().getResults().getChannel().getItem().getCondition().getDate());
         weatherInfoParcelable.setCountry(resultWeatherInfoSelected.getQuery().getResults().getChannel().getLocation().getCountry());
         weatherInfoParcelable.setState(resultWeatherInfoSelected.getQuery().getResults().getChannel().getLocation().getCity());
@@ -367,7 +370,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     public void updateWeatherInMap(ResultWeatherInfo resultWeatherInfo) {
         resultWeatherInfoSelected=resultWeatherInfo;
      Results results=resultWeatherInfo.getQuery().getResults();
-      Channel channel= results.getChannel();
+        Channel channel= results.getChannel();
        Item item= channel.getItem();
         Condition condition=item.getCondition();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -380,10 +383,16 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
 
 
+
+
         mapa.setOnInfoWindowClickListener(this);
-        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this,condition));
+        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this, condition));
         LatLng unknown = new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
-        Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_aux);
+
+
+
+        int iconId = getResources().getIdentifier("drawable/icon_weather_" +condition.getCode(), null, getPackageName());
+        Bitmap bMap = BitmapFactory.decodeResource(getResources(), iconId);
         // Resize the bitmap to 150x100 (width x height)
         Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 60, 60, true);
         // Loads the resized Bitmap into an ImageView

@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.nicolse.appweather.ListAdapters.PlacesListAdapter;
 import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
+import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
 import com.example.nicolse.appweather.R;
 
 import java.util.ArrayList;
@@ -32,8 +33,8 @@ public class ListPlacesFragment extends Fragment implements GetPlacesCallback {
     }
 
     @Override
-    public void updateListPlaces(List<Geoname> listGeonames) {
-        PlacesListAdapter placesListAdapter = new PlacesListAdapter(getContext(),listGeonames);
+    public void updateListPlaces(List<PlaceYahoo> listPlaces) {
+        PlacesListAdapter placesListAdapter = new PlacesListAdapter(getContext(),listPlaces);
 
         View view = getView() ;
 
