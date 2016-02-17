@@ -28,7 +28,6 @@
         <TextView
             android:id="@+id/txt_forecast_date"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_below="@id/img_weather"
             android:layout_centerInParent="true"
@@ -37,7 +36,6 @@
         <TextView
             android:id="@+id/txt_forecast_country"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_forecast_date"
             android:layout_centerInParent="true"
@@ -45,7 +43,6 @@
 
         <TextView
             android:id="@+id/txt_forecast_state"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_forecast_country"

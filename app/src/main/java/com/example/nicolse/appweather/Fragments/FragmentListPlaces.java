@@ -13,7 +13,6 @@ import android.view.ViewGroup;
  */
 public class FragmentListPlaces extends Fragment {
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

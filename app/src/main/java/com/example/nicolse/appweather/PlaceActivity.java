@@ -32,16 +32,10 @@ public class PlaceActivity extends AppCompatActivity {
 
 
 
-
-
-
-
         imageView.setImageResource(weatherInfoParcelable.getIcon_id());
         textDate.setText(weatherInfoParcelable.getDate());
         textCountry.setText(weatherInfoParcelable.getCountry());
         textState.setText(weatherInfoParcelable.getState());
-
-
 
 
         //ForecastParcelable forecastParcelable=(ForecastParcelable) previousIntent.getExtras().getParcelable("infoForecast");
@@ -58,10 +52,6 @@ public class PlaceActivity extends AppCompatActivity {
             Log.v("Forecasts",f.getLow());
             Log.v("Forecasts",f.getText());
         }
-
-
-
-
 
 
 

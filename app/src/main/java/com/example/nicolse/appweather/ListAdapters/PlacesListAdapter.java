@@ -25,8 +25,8 @@ public class PlacesListAdapter extends BaseAdapter {
     private List<PlaceYahoo> listPlaces;
 
     public PlacesListAdapter(Context context, List<PlaceYahoo> listPlaces){
-        this.context=context;
-        this.listPlaces =listPlaces;
+        this.context = context;
+        this.listPlaces = listPlaces;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class PlacesListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View layout = LayoutInflater.from(context).inflate(R.layout.list_view_places,parent,false);
+        View layout = LayoutInflater.from(context).inflate(R.layout.list_view_places, parent, false);
         TextView textPlaceCountry= (TextView) layout.findViewById(R.id.place_country);
          TextView textPlaceCity= (TextView) layout.findViewById(R.id.place_city);
         TextView textPlaceFclName= (TextView) layout.findViewById(R.id.place_fcl_name);
@@ -54,13 +54,13 @@ public class PlacesListAdapter extends BaseAdapter {
         final PlaceYahoo place= (PlaceYahoo) getItem(position);
         textPlaceCountry.setText(place.getCountry());
         textPlaceCity.setText(place.getName());
-        textPlaceFclName.setText(String.valueOf(place.getAdmin1()+","+place.getAdmin2()));
+        textPlaceFclName.setText(String.valueOf(place.getAdmin1() + "," + place.getAdmin2()));
 
         layout.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
-                                          Toast.makeText(context, "hola", Toast.LENGTH_SHORT).show();
-                                          new GetWeatherTask(context).execute(/*"Buenos Aires,AR"*/place.getName()+","+place.getCountry());
+                                          Toast.makeText(context, "Searching location...", Toast.LENGTH_SHORT).show();
+                                          new GetWeatherTask(context).execute(/*"Buenos Aires,AR"*/ place.getName() + "," + place.getCountry());
                                       }
                                   }
         );

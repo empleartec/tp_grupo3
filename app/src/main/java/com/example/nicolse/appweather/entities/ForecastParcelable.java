@@ -74,11 +74,13 @@ public class ForecastParcelable implements Parcelable {
 
         @Override
         public ForecastParcelable createFromParcel(Parcel in) {
+
             return new ForecastParcelable(in);
         }
 
         @Override
         public ForecastParcelable[] newArray(int size) {
+
             return new ForecastParcelable[0];
         }
     };

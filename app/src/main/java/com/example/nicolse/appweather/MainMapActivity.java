@@ -16,11 +16,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
+import java.lang.Object;
 
 
 import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask;
@@ -30,6 +34,7 @@ import com.example.nicolse.appweather.Fragments.ListPlacesFragment;
 import com.example.nicolse.appweather.ObjectsFromJSON.Channel;
 import com.example.nicolse.appweather.ObjectsFromJSON.Condition;
 import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
+
 import com.example.nicolse.appweather.InfoAdapters.WeatherInfoAdapter;
 import com.example.nicolse.appweather.ObjectsFromJSON.Item;
 import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
@@ -46,6 +51,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -56,7 +62,6 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 //import com.google.android.gms.appindexing.AppIndex;
 
 //clave de la api de google: AIzaSyB27CjmPkuR-YWfYuffcEmK23EcvWAYWZo
-
 
 public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback, GetPlacesTask.GetPlacesCallback ,OnInfoWindowClickListener,GetWeatherTask.WheaterTask {
     //build gradle(antes): compile 'com.google.android.gms:play-services-maps:8.1.0'
@@ -81,7 +86,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
 
         if (Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
-            System.out.println("PORTRAID");
+            System.out.println("PORTRAIT");
         }
         if (Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation) {
             System.out.println("LANDSCAPE");
@@ -116,8 +121,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         if (Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation) {
             System.out.println("LANDSCAPE");
         }
-*/
-
+     */
     }
 
 
@@ -155,15 +159,20 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
                 dialogFavFragment.show(fragmentManager, "Sample Fragment");
                 doSave();
                 doLoad();*/
-
-
             }
         });
-
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
+                        try {
+                            query = URLEncoder.encode(query, "utf-8");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new AssertionError("UTF-8 is unknown");
+                            // TODO Auto-generated catch block
+                            //e.printStackTrace();
+                            //Log.e("Error: ", e.getMessage());
+                        }
                         new GetPlacesTask(MainMapActivity.this, MainMapActivity.this).execute(query);
                         return false;
                     }
@@ -282,8 +291,6 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
-
-
 /*
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -333,10 +340,10 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         imageButton.setVisibility(View.INVISIBLE);
         fragmentTransaction.commit();*/
 
-                        DialogFavFragment dialogFavFragment = new DialogFavFragment();
-                dialogFavFragment.show(fragmentManager, "Sample Fragment");
-                doSave();
-                doLoad();
+        DialogFavFragment dialogFavFragment = new DialogFavFragment();
+        dialogFavFragment.show(fragmentManager, "Sample Fragment");
+        doSave();
+        doLoad();
     }
 
     @Override
@@ -355,7 +362,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     public void onInfoWindowClick(Marker marker) {
         Intent intent = new Intent(this,ForecastsActivity.class);
 
-        WeatherInfoParcelable weatherInfoParcelable =new WeatherInfoParcelable();
+        WeatherInfoParcelable weatherInfoParcelable = new WeatherInfoParcelable();
         int iconId = getResources().getIdentifier("drawable/icon_weather_" + resultWeatherInfoSelected.getQuery().getResults().getChannel().getItem().getCondition().getCode(), null, getPackageName());
         weatherInfoParcelable.setIcon_id(iconId);
         weatherInfoParcelable.setDate(resultWeatherInfoSelected.getQuery().getResults().getChannel().getItem().getCondition().getDate());
@@ -369,9 +376,9 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void updateWeatherInMap(ResultWeatherInfo resultWeatherInfo) {
         resultWeatherInfoSelected=resultWeatherInfo;
-     Results results=resultWeatherInfo.getQuery().getResults();
+        Results results=resultWeatherInfo.getQuery().getResults();
         Channel channel= results.getChannel();
-       Item item= channel.getItem();
+        Item item= channel.getItem();
         Condition condition=item.getCondition();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.hide(listPlacesFragment);
@@ -379,10 +386,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
         imageButton.setVisibility(View.VISIBLE);
         fragmentTransaction.commit();
-        Toast.makeText(this,"Latitude:"+item.getLatitude()+"Longitude:"+item.getLongitude(),Toast.LENGTH_SHORT).show();
-
-
-
+        Toast.makeText(this, "Latitude:" + item.getLatitude() + "Longitude:" + item.getLongitude(), Toast.LENGTH_SHORT).show();
 
 
         mapa.setOnInfoWindowClickListener(this);
@@ -390,14 +394,13 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         LatLng unknown = new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
 
 
-
-        int iconId = getResources().getIdentifier("drawable/icon_weather_" +condition.getCode(), null, getPackageName());
+        int iconId = getResources().getIdentifier("drawable/icon_weather_" + condition.getCode(), null, getPackageName());
         Bitmap bMap = BitmapFactory.decodeResource(getResources(), iconId);
-        // Resize the bitmap to 150x100 (width x height)
+        //Resize the bitmap to 150x100 (width x height)
         Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 60, 60, true);
-        // Loads the resized Bitmap into an ImageView
+        //Loads the resized Bitmap into an ImageView
         mapa.addMarker(new MarkerOptions().position(unknown).icon(BitmapDescriptorFactory.fromBitmap(bMapScaled)));
-        //   mapa.setOn
+        //mapa.setOn
         mapa.moveCamera(CameraUpdateFactory.newLatLng(unknown));
         mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(unknown, 10));
 

@@ -41,9 +41,9 @@ public class WeatherInfoAdapter implements GoogleMap.InfoWindowAdapter {
         TextView textTemp = (TextView) v.findViewById(R.id.txt_infoWeather_temp);
         TextView textWeather = (TextView) v.findViewById(R.id.txt_infoWeather_weather);
         TextView textDesc = (TextView) v.findViewById(R.id.txt_infoWeather_desc);
-        textTemp.setText(condition.getTemp());
-        textWeather.setText(condition.getText());
-        textDesc.setText(condition.getDate());
+        textTemp.setText("Temperature: " + condition.getTemp() + "ºC");
+        textWeather.setText("Weather: " + "'" + condition.getText() + "'");
+        textDesc.setText("Date: " + condition.getDate().toUpperCase());
 
         return v;
     }

@@ -56,8 +56,8 @@ public class DialogFavFragment extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (this.activity==null) {
-            this.activity =(MainMapActivity) activity;
+        if (this.activity == null) {
+            this.activity = (MainMapActivity) activity;
         }
     }
 

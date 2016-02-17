@@ -28,7 +28,7 @@ public class ListPlacesFragment extends Fragment implements GetPlacesCallback {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_places,container,false);
+        View view = inflater.inflate(R.layout.fragment_list_places,container, false);
         return view;
     }
 
@@ -36,14 +36,14 @@ public class ListPlacesFragment extends Fragment implements GetPlacesCallback {
     public void updateListPlaces(List<PlaceYahoo> listPlaces) {
         PlacesListAdapter placesListAdapter = new PlacesListAdapter(getContext(),listPlaces);
 
-        View view = getView() ;
+        View view = getView();
 
-       if(view==null){
+       if(view == null){
            System.out.println("EL GETVIRE() RETORNA UN NULL");
            //TODO : cuando se vuelve del otra activity al main como que se debe volver a instanciar el fragment o la lista
        }
 
-        ListView miLista = (ListView)  view.findViewById(R.id.list_view_places);
+        ListView miLista = (ListView) view.findViewById(R.id.list_view_places);
         miLista.setAdapter(placesListAdapter);
     }
 
