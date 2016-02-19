@@ -1,6 +1,7 @@
 package com.example.nicolse.appweather.Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.DialogFragment;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.nicolse.appweather.FavouriteActivity;
 import com.example.nicolse.appweather.MainMapActivity;
+import com.example.nicolse.appweather.ForecastsActivity;
 import com.example.nicolse.appweather.R;
 
 /**
@@ -19,10 +22,11 @@ import com.example.nicolse.appweather.R;
 public class DialogFavFragment extends DialogFragment {
 
 
-    private MainMapActivity activity;
+    private ForecastsActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_dialog_fav, container, false);
         getDialog().setTitle("Adding Favourite Place");
         getContext();
@@ -31,6 +35,7 @@ public class DialogFavFragment extends DialogFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(getActivity(), "Cancel", Toast.LENGTH_SHORT).show();
                         dismiss();
                     }
                 }
@@ -42,12 +47,18 @@ public class DialogFavFragment extends DialogFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(), "Place selected was added to \"favourites\"", Toast.LENGTH_SHORT).show();
+
+                        //aca hay que llamar al sharedPreference doSave()
+                        activity.doSave();
+
+                        //Intent anIntent = new Intent(getContext(), FavouriteActivity.class);
+                        //startActivity(anIntent);
+                        Toast.makeText(getActivity(), "Place selected was added to \"favourites\"", Toast.LENGTH_LONG).show();
                         dismiss();
                     }
                 }
-        );
 
+        );
 
         return rootView;
     }
@@ -57,10 +68,9 @@ public class DialogFavFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         if (this.activity == null) {
-            this.activity = (MainMapActivity) activity;
+            this.activity = (ForecastsActivity) activity;
         }
     }
-
 
 
 }

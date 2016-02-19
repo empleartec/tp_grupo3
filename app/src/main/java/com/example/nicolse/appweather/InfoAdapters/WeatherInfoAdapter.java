@@ -20,7 +20,7 @@ public class WeatherInfoAdapter implements GoogleMap.InfoWindowAdapter {
     private Context context;
     private Condition condition;
 
-    public WeatherInfoAdapter(Context context,Condition condition) {
+    public WeatherInfoAdapter(Context context, Condition condition) {
         super();
         this.context = context;
         this.condition = condition;

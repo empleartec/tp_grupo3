@@ -1,19 +1,26 @@
 package com.example.nicolse.appweather;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nicolse.appweather.Fragments.ForecastFragment;
 import com.example.nicolse.appweather.entities.ForecastParcelable;
 import com.example.nicolse.appweather.entities.WeatherInfoParcelable;
+import com.example.nicolse.appweather.Fragments.DialogFavFragment;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ForecastsActivity extends AppCompatActivity {
 
@@ -84,8 +91,44 @@ public class ForecastsActivity extends AppCompatActivity {
             ft.remove(fragment);
             ft.commit();
         }
+    }
 
+    public void doSave() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        /*editor.putString("Country","Argentina");
+        editor.putString("Province/State","Cordoba");
+        editor.putString("City/County","Nono");
+        editor.putFloat("Latitude", -31.79765f);
+        editor.putFloat("Longitude", -65.00312f);*/
+
+        Set<String> set1 = new HashSet<String>();
+        List<String> list1 = new ArrayList<String>();
+        list1.add("nombre:Nico");
+        list1.add("country:Argentina");
+        list1.add("Number:4321");
+
+        Set<String> set2 = new HashSet<String>();
+        List<String> list2 = new ArrayList<String>();
+        list2.add("nombre:Pepetonio");
+        list2.add("country:España");
+        list2.add("Number:4423");
+
+        set1.addAll(list1);
+        editor.putStringSet("1", set1);
+
+        set2.addAll(list2);
+        editor.putStringSet("2", set2);
+
+        editor.apply();
     }
 
 
+
+    public void toDialogFav(View v) {
+        DialogFavFragment dialogFavFragment = new DialogFavFragment();
+        dialogFavFragment.show(getSupportFragmentManager(), "Sample fragment");
+
+        //startActivity(new Intent(this, FavouriteActivity.class));
+    }
 }

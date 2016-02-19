@@ -63,7 +63,7 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 
 //clave de la api de google: AIzaSyB27CjmPkuR-YWfYuffcEmK23EcvWAYWZo
 
-public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback, GetPlacesTask.GetPlacesCallback ,OnInfoWindowClickListener,GetWeatherTask.WheaterTask {
+public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback, GetPlacesTask.GetPlacesCallback , OnInfoWindowClickListener, GetWeatherTask.WheaterTask {
     //build gradle(antes): compile 'com.google.android.gms:play-services-maps:8.1.0'
     private GoogleMap mapa;
     private FragmentManager fragmentManager;
@@ -140,12 +140,12 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 //DO SOMETHING WHEN THE SEARCHVIEW IS CLOSING
-                Toast.makeText(MainMapActivity.this, "SearchView was clossed" + searchView.getQuery(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMapActivity.this, "SearchView was clossed (" + searchView.getQuery() + ")", Toast.LENGTH_SHORT).show();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.hide(listPlacesFragment);
                 fragmentTransaction.show(supportMapFragment);
-                ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
-                imageButton.setVisibility(View.VISIBLE);
+                //ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
+                //imageButton.setVisibility(View.VISIBLE);
                 fragmentTransaction.commit();
                 return true;
             }
@@ -163,6 +163,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         });
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
+
                     @Override
                     public boolean onQueryTextSubmit(String query) {
                         try {
@@ -212,17 +213,17 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         condition.setCode("N/A");
         condition.setDate("N/A");
         condition.setTemp("N/A");
-        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this,condition));
+        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this, condition));
         LatLng unknown = new LatLng(-31.79765, -65.00312);
 
 
 
         Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_aux);
-        // Resize the bitmap to 150x100 (width x height)
+        //Resize the bitmap to 150x100 (width x height)
         Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 60, 60, true);
-        // Loads the resized Bitmap into an ImageView
+        //Loads the resized Bitmap into an ImageView
         mapa.addMarker(new MarkerOptions().position(unknown).icon(BitmapDescriptorFactory.fromBitmap(bMapScaled)));
-        //   mapa.setOn
+        //mapa.setOn
         mapa.moveCamera(CameraUpdateFactory.newLatLng(unknown));
         mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(unknown, 10));
     }
@@ -244,52 +245,9 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     }
 
-    public void doSave() {
-        SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        /*editor.putString("Country","Argentina");
-        editor.putString("Province/State","Cordoba");
-        editor.putString("City/County","Nono");
-        editor.putFloat("Latitude", -31.79765f);
-        editor.putFloat("Longitude", -65.00312f);*/
-
-        Set<String> set1 = new HashSet<String>();
-        List<String> list1 = new ArrayList<String>();
-        list1.add("nombre:Nico");
-        list1.add("country:Argentina");
-        list1.add("Number:4321");
-
-        Set<String> set2 = new HashSet<String>();
-        List<String> list2 = new ArrayList<String>();
-        list2.add("nombre:Pepetonio");
-        list2.add("country:España");
-        list2.add("Number:4423");
-
-        set1.addAll(list1);
-        editor.putStringSet("1", set1);
-
-        set2.addAll(list2);
-        editor.putStringSet("2", set2);
-
-        editor.apply();
-    }
 
 
-    public void doLoad() {
-        SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
 
-        Map<String, Set<String>> keys = (Map<String, Set<String>>) sharedPreferences.getAll();
-
-        for (Map.Entry<String, Set<String>> entry : keys.entrySet()) {
-            Set<String> set = entry.getValue();
-            System.out.println("Key:" + entry.getKey());
-            System.out.println("Values:");
-            for (String s : set) {
-                System.out.println(s);
-            }
-            //Log.d("map values::::::", entry.getKey() + ": " + entry.getValue().toString());
-        }
-    }
 
 /*
     @Override
@@ -331,28 +289,29 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
         }
     }
-
+/*
     public void resetearFragmentos(View view) {
-     /*   FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.hide(supportMapFragment);
         fragmentTransaction.show(listPlacesFragment);
         ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
         imageButton.setVisibility(View.INVISIBLE);
-        fragmentTransaction.commit();*/
+        fragmentTransaction.commit();
 
         DialogFavFragment dialogFavFragment = new DialogFavFragment();
         dialogFavFragment.show(fragmentManager, "Sample Fragment");
         doSave();
         doLoad();
     }
+    */
 
     @Override
     public void updateListPlaces(List<PlaceYahoo> listPlaces) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.hide(supportMapFragment);
         fragmentTransaction.show(listPlacesFragment);
-        ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
-        imageButton.setVisibility(View.INVISIBLE);
+        //ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
+        //imageButton.setVisibility(View.INVISIBLE);
         fragmentTransaction.commit();
         listPlacesFragment.updateListPlaces(listPlaces);
         //listPlacesFragment;
@@ -360,7 +319,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Intent intent = new Intent(this,ForecastsActivity.class);
+        Intent intent = new Intent(this, ForecastsActivity.class);
 
         WeatherInfoParcelable weatherInfoParcelable = new WeatherInfoParcelable();
         int iconId = getResources().getIdentifier("drawable/icon_weather_" + resultWeatherInfoSelected.getQuery().getResults().getChannel().getItem().getCondition().getCode(), null, getPackageName());
@@ -383,10 +342,10 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.hide(listPlacesFragment);
         fragmentTransaction.show(supportMapFragment);
-        ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
-        imageButton.setVisibility(View.VISIBLE);
+        //ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
+        //imageButton.setVisibility(View.VISIBLE);
         fragmentTransaction.commit();
-        Toast.makeText(this, "Latitude:" + item.getLatitude() + "Longitude:" + item.getLongitude(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Latitude:" + item.getLatitude() + " Longitude:" + item.getLongitude(), Toast.LENGTH_SHORT).show();
 
 
         mapa.setOnInfoWindowClickListener(this);

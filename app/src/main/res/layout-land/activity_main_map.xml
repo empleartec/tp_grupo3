@@ -45,22 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <FrameLayout
-            android:id="@+id/fram_map"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <ImageButton
-                android:id="@+id/btn_favourite"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:layout_gravity="right|top"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="120dp"
-                android:src="@drawable/icon_star"
-                android:onClick="resetearFragmentos"/>
-        </FrameLayout>
-
 
         <!-- The fragments will go here -->
     </RelativeLayout>

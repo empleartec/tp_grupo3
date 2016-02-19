@@ -2,7 +2,7 @@ package com.example.nicolse.appweather.Fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+//import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +30,7 @@ public class ForecastFragment extends Fragment {
        this.forecastParcelable = forecastParcelable;
    }
 
-    @Nullable
+    //@Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_forecast,container, false);
@@ -39,7 +39,7 @@ public class ForecastFragment extends Fragment {
         TextView textHigh= (TextView)view.findViewById(R.id.txt_forecast_high_frag);
         TextView textLow= (TextView)view.findViewById(R.id.txt_forecast_low_frag);
 
-        ImageView imageWeather=(ImageView) view.findViewById(R.id.image_weather_forecast);
+        ImageView imageWeather = (ImageView) view.findViewById(R.id.image_weather_forecast);
 
         int resourceId = getResources().getIdentifier("drawable/icon_weather_" + forecastParcelable.getCode(), null, getActivity().getPackageName());
         Drawable weatherImageDrawable = getResources().getDrawable(resourceId);

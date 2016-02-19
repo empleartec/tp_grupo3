@@ -2,7 +2,7 @@ package com.example.nicolse.appweather.Fragments;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+//import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,20 +25,21 @@ import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask.GetPlacesCallback
 public class ListPlacesFragment extends Fragment implements GetPlacesCallback {
 
 
-    @Nullable
+    //@Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_places,container, false);
+
+        View view = inflater.inflate(R.layout.fragment_list_places, container, false);
         return view;
     }
 
     @Override
     public void updateListPlaces(List<PlaceYahoo> listPlaces) {
-        PlacesListAdapter placesListAdapter = new PlacesListAdapter(getContext(),listPlaces);
+        PlacesListAdapter placesListAdapter = new PlacesListAdapter(getContext(), listPlaces);
 
         View view = getView();
 
-       if(view == null){
+        if(view == null){
            System.out.println("EL GETVIRE() RETORNA UN NULL");
            //TODO : cuando se vuelve del otra activity al main como que se debe volver a instanciar el fragment o la lista
        }

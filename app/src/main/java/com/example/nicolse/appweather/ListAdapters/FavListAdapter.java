@@ -18,13 +18,13 @@ import java.util.List;
 /**
  * Created by NicolásE on 29/01/2016.
  */
-public class PlacesListAdapter extends BaseAdapter {
+public class FavListAdapter extends BaseAdapter {
 
     private Context context;
 
     private List<PlaceYahoo> listPlaces;
 
-    public PlacesListAdapter(Context context, List<PlaceYahoo> listPlaces){
+    public FavListAdapter(Context context, List<PlaceYahoo> listPlaces){
         this.context = context;
         this.listPlaces = listPlaces;
     }
@@ -46,7 +46,7 @@ public class PlacesListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View layout = LayoutInflater.from(context).inflate(R.layout.list_view_places, parent, false);
+        View layout = LayoutInflater.from(context).inflate(R.layout.list_view_favorites, parent, false);
         TextView textPlaceCountry = (TextView) layout.findViewById(R.id.place_country);
         TextView textPlaceCity = (TextView) layout.findViewById(R.id.place_city);
         TextView textPlaceFclName = (TextView) layout.findViewById(R.id.place_fcl_name);

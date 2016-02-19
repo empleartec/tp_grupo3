@@ -49,6 +49,17 @@
             android:layout_centerInParent="true"
             android:text="N/A" />
 
+
+        <ImageButton
+            android:id="@+id/btn_favourite"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="120dp"
+            android:src="@drawable/icon_star"
+            android:onClick="toDialogFav"/>
+
     </RelativeLayout>
 
 

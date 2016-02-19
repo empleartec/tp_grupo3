@@ -26,4 +26,5 @@
         android:text="(Click it to going to show \n Forecast or add to Favourites )"
         android:textColor="@color/colorPrimaryDark"/>
 
+
 </LinearLayout>

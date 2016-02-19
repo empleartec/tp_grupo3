@@ -7,6 +7,8 @@
         android:id="@+id/action_favourites"
         android:title="@string/title_activity_favourite"
         app:showAsAction="ifRoom"
+        android:icon="@drawable/icon_star"
+        app:actionViewClass="android.support.v7.widget.Favourites"
         />
 
 </menu>

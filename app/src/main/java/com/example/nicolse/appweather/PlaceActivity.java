@@ -22,12 +22,12 @@ public class PlaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
 
-        Intent previousIntent=getIntent();
+        Intent previousIntent = getIntent();
                WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) previousIntent.getExtras().getParcelable("infoWeather");
-        ImageView imageView= (ImageView) findViewById(R.id.img_weather);
-        TextView textDate= (TextView) findViewById(R.id.txt_forecast_date);
-        TextView textCountry= (TextView) findViewById(R.id.txt_forecast_country);
-        TextView textState= (TextView) findViewById(R.id.txt_forecast_state);
+        ImageView imageView = (ImageView) findViewById(R.id.img_weather);
+        TextView textDate = (TextView) findViewById(R.id.txt_forecast_date);
+        TextView textCountry = (TextView) findViewById(R.id.txt_forecast_country);
+        TextView textState = (TextView) findViewById(R.id.txt_forecast_state);
 
 
 
