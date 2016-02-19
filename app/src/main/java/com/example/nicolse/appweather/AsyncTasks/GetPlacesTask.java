@@ -3,9 +3,11 @@ package com.example.nicolse.appweather.AsyncTasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
 import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
+import com.example.nicolse.appweather.ObjectsFromJSON.PlacesYahoo;
 import com.example.nicolse.appweather.ObjectsFromJSON.ResultGeonames;
 
 import com.example.nicolse.appweather.ObjectsFromJSON.ResultPlacesYahoo;
@@ -85,9 +87,17 @@ public class GetPlacesTask extends AsyncTask<String, String, String>  {
 
             ResultPlacesYahoo resultPlacesYahoo = gson.fromJson(json, ResultPlacesYahoo.class);
           //  int totalResultCounts = Integer.parseInt(resultGeonames.getTotalResultsCount());
-            List<PlaceYahoo> listPlaces= resultPlacesYahoo.getPlaces().getPlace();//TODO:la lista para pasarlo al list adapter
+
+            PlacesYahoo placesYahoo =resultPlacesYahoo.getPlaces();
+            List<PlaceYahoo> listPlaces=placesYahoo.getPlace();//TODO:la lista para pasarlo al list adapter
            // callback.mostrarToast(resultGeonames.getTotalResultsCount());
-            callback.updateListPlaces(listPlaces);
+
+            if(placesYahoo.getTotal()>0 && placesYahoo.getCount()>0) {
+                callback.updateListPlaces(listPlaces);
+            }
+            else{
+                Toast.makeText( context,"city name not found",Toast.LENGTH_SHORT).show();
+            }
             // PlacesListAdapter adapter=new PlacesListAdapter( this.context,listGeonames);
            // listView.setAdapter(adapter);//esta listview viene del activity
 

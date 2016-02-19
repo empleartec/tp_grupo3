@@ -6,7 +6,25 @@ import java.util.List;
  * Created by NicolásE on 15/02/2016.
  */
 public class PlacesYahoo {
-    List<PlaceYahoo> place;
+    private List<PlaceYahoo> place;
+    private int total;
+    private int count;
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public List<PlaceYahoo> getPlace() {
         return place;
