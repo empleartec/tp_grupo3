@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nicolse.appweather.Fragments.ForecastFragment;
 import com.example.nicolse.appweather.entities.ForecastParcelable;
@@ -96,12 +97,36 @@ public class ForecastsActivity extends AppCompatActivity {
     public void doSave() {
         SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        //WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) previousIntent.getExtras().getParcelable("infoWeather");
+        WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) getIntent().getExtras().getParcelable("infoWeather");
+
+        //editor.putString(weatherInfoParcelable.getCountry().toString());
+        //editor.putString("Province/State", "Cordoba");
+        //editor.putString("City/County", "Carlos Paz");
+
+        Set favos = new HashSet();
+        favos.add(weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString());
+
+        editor.putStringSet("FAVORITOS", favos);
+
+        editor.apply();
+        /*Boolean flag = editor.commit();
+
+        if (flag == true) {
+            Toast.makeText(getApplicationContext(),
+                    "Preferences saved sucessfully!",
+                    Toast.LENGTH_LONG).show();
+                    }
+        */
+
         /*editor.putString("Country","Argentina");
         editor.putString("Province/State","Cordoba");
         editor.putString("City/County","Nono");
         editor.putFloat("Latitude", -31.79765f);
         editor.putFloat("Longitude", -65.00312f);*/
 
+       /*
         Set<String> set1 = new HashSet<String>();
         List<String> list1 = new ArrayList<String>();
         list1.add("nombre:Nico");
@@ -120,15 +145,27 @@ public class ForecastsActivity extends AppCompatActivity {
         set2.addAll(list2);
         editor.putStringSet("2", set2);
 
+        //WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) previousIntent.getExtras().getParcelable("infoWeather");
+
+        TextView textCountry = (TextView) findViewById(R.id.txt_forecast_country);
+        TextView textState = (TextView) findViewById(R.id.txt_forecast_state);
+
+        textCountry.setText(weatherInfoParcelable.getCountry());
+        textState.setText(weatherInfoParcelable.getState());
+
+        System.out.println(weatherInfoParcelable.getCountry());
+        System.out.println(weatherInfoParcelable.getState());
+
         editor.apply();
-    }
+
+        */
+        }
+
 
 
 
     public void toDialogFav(View v) {
         DialogFavFragment dialogFavFragment = new DialogFavFragment();
         dialogFavFragment.show(getSupportFragmentManager(), "Sample fragment");
-
-        //startActivity(new Intent(this, FavouriteActivity.class));
     }
 }

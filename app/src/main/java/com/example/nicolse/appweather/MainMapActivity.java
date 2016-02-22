@@ -30,6 +30,7 @@ import java.lang.Object;
 import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask;
 import com.example.nicolse.appweather.AsyncTasks.GetWeatherTask;
 import com.example.nicolse.appweather.Fragments.DialogFavFragment;
+import com.example.nicolse.appweather.Fragments.ListFavFragment;
 import com.example.nicolse.appweather.Fragments.ListPlacesFragment;
 import com.example.nicolse.appweather.ObjectsFromJSON.Channel;
 import com.example.nicolse.appweather.ObjectsFromJSON.Condition;
@@ -69,6 +70,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     private FragmentManager fragmentManager;
     private SupportMapFragment supportMapFragment;
     private ListPlacesFragment listPlacesFragment;
+    //private ListFavFragment listFavFragment;
     private ResultWeatherInfo resultWeatherInfoSelected;
 
     @Override
@@ -143,6 +145,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
                 Toast.makeText(MainMapActivity.this, "SearchView was clossed (" + searchView.getQuery() + ")", Toast.LENGTH_SHORT).show();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.hide(listPlacesFragment);
+                //fragmentTransaction.hide(listFavFragment);
                 fragmentTransaction.show(supportMapFragment);
                 //ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
                 //imageButton.setVisibility(View.VISIBLE);
@@ -238,9 +241,12 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
       //  mapa.setOnMarkerClickListener(this);  //seteamos el listener VER-->onMarkerClick(Marker marker)
 
         listPlacesFragment = new ListPlacesFragment();
+        //listFavFragment = new ListFavFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, listPlacesFragment);
+        //fragmentTransaction.add(R.id.fragment_container, listFavFragment);
         fragmentTransaction.hide(listPlacesFragment);
+        //fragmentTransaction.hide(listFavFragment);
         fragmentTransaction.commit();
 
     }
@@ -310,12 +316,30 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.hide(supportMapFragment);
         fragmentTransaction.show(listPlacesFragment);
+        //fragmentTransaction.show(listFavFragment);
         //ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
         //imageButton.setVisibility(View.INVISIBLE);
         fragmentTransaction.commit();
         listPlacesFragment.updateListPlaces(listPlaces);
+        //listFavFragment.updateListPlaces(listPlaces);
         //listPlacesFragment;
     }
+
+    /*
+    @Override
+    public void updateListFav(List<PlaceYahoo> listFav) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.hide(supportMapFragment);
+        fragmentTransaction.show(listFavFragment);
+        //fragmentTransaction.show(listFavFragment);
+        //ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
+        //imageButton.setVisibility(View.INVISIBLE);
+        fragmentTransaction.commit();
+        listFavFragment.updateListFav(listFav);
+        //listFavFragment.updateListPlaces(listPlaces);
+        //listPlacesFragment;
+    }
+    */
 
     @Override
     public void onInfoWindowClick(Marker marker) {
@@ -334,13 +358,14 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public void updateWeatherInMap(ResultWeatherInfo resultWeatherInfo) {
-        resultWeatherInfoSelected=resultWeatherInfo;
-        Results results=resultWeatherInfo.getQuery().getResults();
-        Channel channel= results.getChannel();
+        resultWeatherInfoSelected = resultWeatherInfo;
+        Results results = resultWeatherInfo.getQuery().getResults();
+        Channel channel = results.getChannel();
         Item item= channel.getItem();
-        Condition condition=item.getCondition();
+        Condition condition = item.getCondition();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.hide(listPlacesFragment);
+        //fragmentTransaction.hide(listFavFragment);
         fragmentTransaction.show(supportMapFragment);
         //ImageButton imageButton = (ImageButton) findViewById(R.id.btn_favourite);
         //imageButton.setVisibility(View.VISIBLE);

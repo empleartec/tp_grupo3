@@ -47,6 +47,8 @@ public class GetPlacesTask extends AsyncTask<String, String, String>  {
     }
 
 
+
+
     @Override
     protected String doInBackground(String... placeString) {
         String place = placeString[0];
@@ -89,7 +91,8 @@ public class GetPlacesTask extends AsyncTask<String, String, String>  {
           //  int totalResultCounts = Integer.parseInt(resultGeonames.getTotalResultsCount());
 
             PlacesYahoo placesYahoo =resultPlacesYahoo.getPlaces();
-            List<PlaceYahoo> listPlaces=placesYahoo.getPlace();//TODO:la lista para pasarlo al list adapter
+            List<PlaceYahoo> listPlaces = placesYahoo.getPlace();//TODO:la lista para pasarlo al list adapter
+            List<PlaceYahoo> listFav = placesYahoo.getPlace();
            // callback.mostrarToast(resultGeonames.getTotalResultsCount());
 
             if (placesYahoo.getTotal() >0 && placesYahoo.getCount() >0) {

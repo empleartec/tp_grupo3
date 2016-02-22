@@ -70,7 +70,7 @@ public class WeatherInfoParcelable implements Parcelable {
         dest.writeString(date);
         dest.writeString(country);
         dest.writeString(state);
-     dest.writeList(forecasts);
+        dest.writeList(forecasts);
     }
 
 

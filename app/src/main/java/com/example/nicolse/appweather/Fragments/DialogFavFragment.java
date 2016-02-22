@@ -48,12 +48,14 @@ public class DialogFavFragment extends DialogFragment {
                     @Override
                     public void onClick(View v) {
 
-                        //aca hay que llamar al sharedPreference doSave()
+                        //aca hay que llamar al doSave()
                         activity.doSave();
 
-                        //Intent anIntent = new Intent(getContext(), FavouriteActivity.class);
-                        //startActivity(anIntent);
                         Toast.makeText(getActivity(), "Place selected was added to \"favourites\"", Toast.LENGTH_LONG).show();
+
+                        Intent anIntent = new Intent(getContext(), FavouriteActivity.class);
+                        startActivity(anIntent);
+
                         dismiss();
                     }
                 }

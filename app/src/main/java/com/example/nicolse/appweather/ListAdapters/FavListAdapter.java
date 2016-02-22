@@ -22,26 +22,26 @@ public class FavListAdapter extends BaseAdapter {
 
     private Context context;
 
-    private List<PlaceYahoo> listPlaces;
+    private List<PlaceYahoo> listFav;
 
     public FavListAdapter(Context context, List<PlaceYahoo> listPlaces){
         this.context = context;
-        this.listPlaces = listPlaces;
+        this.listFav = listPlaces;
     }
 
     @Override
     public int getCount() {
-        return listPlaces.size();
+        return listFav.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return listPlaces.get(position);
+        return listFav.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return listPlaces.get(position).hashCode();
+        return listFav.get(position).hashCode();
     }
 
     @Override

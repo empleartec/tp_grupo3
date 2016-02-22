@@ -42,7 +42,7 @@ public class PlaceActivity extends AppCompatActivity {
 
 
         ArrayList <ForecastParcelable> forecastParcelables;
-        forecastParcelables=weatherInfoParcelable.getForecasts();
+        forecastParcelables = weatherInfoParcelable.getForecasts();
 
         for (ForecastParcelable f: forecastParcelables) {
             Log.v("Forecasts", f.getCode());
