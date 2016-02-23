@@ -22,6 +22,14 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarFavourite">
+
+    </RelativeLayout>
+<!--
         <TextView
             android:id="@+id/txt_fav"
             android:layout_below="@+id/toolbarFavourite"
@@ -30,11 +38,28 @@
             android:text="Favourites Places: "
             />
 
-        <ListView
-            android:layout_below="@+id/txt_fav"
-            android:id="@+id/list_view_favourites"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
+    <TextView
+        android:id="@+id/txt_favourite_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_fav"
+        android:layout_centerInParent="true"
+        android:text="N/A" />
+
+    <TextView
+        android:id="@+id/txt_favourite_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_favourite_country"
+        android:layout_centerInParent="true"
+        android:text="N/A" />
+
+    <ListView
+        android:layout_below="@+id/txt_fav"
+        android:id="@+id/list_view_favourites"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+-->
 
 </RelativeLayout>

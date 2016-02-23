@@ -24,9 +24,9 @@ public class FavListAdapter extends BaseAdapter {
 
     private List<PlaceYahoo> listFav;
 
-    public FavListAdapter(Context context, List<PlaceYahoo> listPlaces){
+    public FavListAdapter(Context context, List<PlaceYahoo> listFav){
         this.context = context;
-        this.listFav = listPlaces;
+        this.listFav = listFav;
     }
 
     @Override
@@ -47,9 +47,9 @@ public class FavListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View layout = LayoutInflater.from(context).inflate(R.layout.list_view_favorites, parent, false);
-        TextView textPlaceCountry = (TextView) layout.findViewById(R.id.place_country);
-        TextView textPlaceCity = (TextView) layout.findViewById(R.id.place_city);
-        TextView textPlaceFclName = (TextView) layout.findViewById(R.id.place_fcl_name);
+        TextView textPlaceCountry = (TextView) layout.findViewById(R.id.fav_country);
+        TextView textPlaceCity = (TextView) layout.findViewById(R.id.fav_city);
+        TextView textPlaceFclName = (TextView) layout.findViewById(R.id.fav_fcl_name);
 
         final PlaceYahoo place = (PlaceYahoo) getItem(position);
         textPlaceCountry.setText(place.getCountry());
