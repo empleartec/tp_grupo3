@@ -67,7 +67,6 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     private FragmentManager fragmentManager;
     private SupportMapFragment supportMapFragment;
     private ListPlacesFragment listPlacesFragment;
-    //private ListFavFragment listFavFragment;
     private ResultWeatherInfo resultWeatherInfoSelected;
 
     @Override
@@ -123,6 +122,16 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
      */
     }
 
+/*
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String name = intent.getStringExtra("Name");
+        String country =  intent.getStringExtra("Country");
+        GetWeatherTask getWeatherTask = new GetWeatherTask(this);
+        getWeatherTask.execute(name + "," + country);
+    }
+    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -236,6 +245,14 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         fragmentTransaction.add(R.id.fragment_container, listPlacesFragment);
         fragmentTransaction.hide(listPlacesFragment);
         fragmentTransaction.commit();
+
+        if (getIntent().hasExtra("Name")) {
+            String name = getIntent().getStringExtra("Name");
+            String country = getIntent().getStringExtra("Country");
+            GetWeatherTask getWeatherTask = new GetWeatherTask(this);
+            getWeatherTask.execute(name + "," + country);
+        }
+
     }
 
 

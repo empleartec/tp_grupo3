@@ -14,25 +14,27 @@
 
     <ImageView
         android:id="@+id/img_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
         />
 
     <TextView
         android:id="@+id/txt_forecast_date"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="N/A"/>
+        android:layout_height="20dp"
+        android:text="N/A"
+        />
     <TextView
         android:id="@+id/txt_forecast_country"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="N/A"/>
+        android:layout_height="20dp"
+        android:text="N/A"
+        />
     <TextView
         android:id="@+id/txt_forecast_state"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="N/A"/>
-
+        android:layout_height="20dp"
+        android:text="N/A"
+        />
 
 </LinearLayout>

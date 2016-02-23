@@ -22,6 +22,7 @@ import com.example.nicolse.appweather.entities.WeatherInfoParcelable;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -34,6 +35,7 @@ public class FavouriteActivity extends AppCompatActivity /*implements GetPlacesC
     private FragmentManager fragmentManager;
     private ListFavFragment listFavFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class FavouriteActivity extends AppCompatActivity /*implements GetPlacesC
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+/*
         fragmentManager = getSupportFragmentManager();
         listFavFragment = new ListFavFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -51,9 +53,18 @@ public class FavouriteActivity extends AppCompatActivity /*implements GetPlacesC
         fragmentTransaction.show(listFavFragment);
         fragmentTransaction.commit();
         //listFavFragment.updateListPlaces(listFav);
+*/
 
+        fragmentManager = getSupportFragmentManager();
+        listFavFragment = new ListFavFragment();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container, listFavFragment);
+        fragmentTransaction.show(listFavFragment);
+        fragmentTransaction.commit();
 
         doLoad();
+
+
     }
 
 
@@ -61,68 +72,35 @@ public class FavouriteActivity extends AppCompatActivity /*implements GetPlacesC
         SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
 
         Set favos = new HashSet();
-        favos = sharedPreferences.getStringSet("FAVORITOS", null);
-        //String temp = sharedPreferences.getString("FAVORITOS", String.valueOf(favos));
-        //TextView textInfo = (TextView) findViewById(R.id.fav_info);
+        favos = sharedPreferences.getStringSet("FAVORITOS", favos);
+        List<PlaceYahoo> listFav = new ArrayList<PlaceYahoo>();
+
 
         if (favos != null) {
             for (Object favo : favos) {
-                Toast.makeText(getApplicationContext(),
-                        favo.toString(),
-                        Toast.LENGTH_LONG).show();
-                //textInfo.setText(favo.toString());
-
+                String[] f = favo.toString().split(",");
+                PlaceYahoo py = new PlaceYahoo();
+                py.setCountry(f[0]);
+                py.setName(f[1]);
+                listFav.add(py);
             }
-
-        }
-    }
-}
-
-    //textInfo.setText(weatherInfoParcelable.getCountry());
-
-/*
-        @Override
-        public void updateListPlaces(List<PlaceYahoo> listFav) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.show(listFavFragment);
-            fragmentTransaction.commit();
             listFavFragment.updateListPlaces(listFav);
         }
-*/
 
-
-        //fragmentTransaction.show(listFavFragment);
-        //fragmentTransaction.commit();
-
-        /*
-        Intent previousIntent = getIntent();
-        WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) previousIntent.getExtras().getParcelable("infoWeather");
-
-        TextView textCountry = (TextView) findViewById(R.id.txt_forecast_country);
-        TextView textState = (TextView) findViewById(R.id.txt_forecast_state);
-
-        textCountry.setText(weatherInfoParcelable.getCountry());
-        textState.setText(weatherInfoParcelable.getState());
-        */
-
-        //System.out.print("myToolbar.getTitle()");
+    }
 
 /*
     @Override
     public void updateListPlaces(List<PlaceYahoo> listFav) {
-        FavListAdapter favListAdapter = new FavListAdapter(getApplicationContext(), listFav);
-
-        View view = findViewById(R.id.list_view_favourites);
-
-        if (view == null) {
-            System.out.println("EL GETVIRE() RETORNA UN NULL");
-            //TODO : cuando se vuelve del otra activity al main como que se debe volver a instanciar el fragment o la lista
-        }
-        ListView miLista = (ListView) view.findViewById(R.id.list_view_favourites);
-        miLista.setAdapter(favListAdapter);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.show(listFavFragment);
+        fragmentTransaction.commit();
+        listFavFragment.updateListPlaces(listFav);
     }
+    */
+}
 
-*/
+        //System.out.print("myToolbar.getTitle()");
 
         /*
         Map<String, Set<String>> keys = (Map<String, Set<String>>) sharedPreferences.getAll();

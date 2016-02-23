@@ -30,7 +30,7 @@ public class GetWeatherTask extends AsyncTask<String, String, String> {
 
   /*  public GetWeatherTask(WeatherInfoParcelable weatherInfo){
         super();
-        this.weatherInfo= weatherInfo ;
+        this.weatherInfo = weatherInfo ;
     }*/
 
 

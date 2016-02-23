@@ -31,7 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/img_weather"
             android:layout_centerInParent="true"
-            android:text="N/A" />
+            android:text="N/A"
+            android:textSize="18dp"
+            />
 
         <TextView
             android:id="@+id/txt_forecast_country"
@@ -39,7 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_forecast_date"
             android:layout_centerInParent="true"
-            android:text="N/A" />
+            android:text="N/A"
+            android:textSize="15dp"
+            />
 
         <TextView
             android:id="@+id/txt_forecast_state"
@@ -47,16 +51,18 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_forecast_country"
             android:layout_centerInParent="true"
-            android:text="N/A" />
+            android:text="N/A"
+            android:textSize="15dp"
+            />
 
 
         <ImageButton
             android:id="@+id/btn_favourite"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
             android:layout_gravity="right|top"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="100dp"
             android:src="@drawable/icon_star"
             android:onClick="toDialogFav"/>
 
@@ -68,7 +74,6 @@
         android:background="@drawable/background_forecast"
         android:layout_below="@+id/a"
         android:layout_marginTop="10dp"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

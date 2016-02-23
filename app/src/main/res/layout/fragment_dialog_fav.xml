@@ -17,22 +17,26 @@
     <TextView
         android:id="@+id/desc_asc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:text="Do you want to add this place to favourites?"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:textSize="15dp" />
 
 
     <Button
         android:id="@+id/noButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:text="NO"
         android:layout_alignBaseline="@+id/yesButton"
         android:layout_alignBottom="@+id/yesButton"
         android:layout_toRightOf="@+id/auxView"
-        android:layout_toEndOf="@+id/auxView" />
+        android:layout_toEndOf="@+id/auxView"
+        android:textSize="18dp"
+        />
 
 
     <View
@@ -40,19 +44,20 @@
         android:layout_width="30dp"
         android:layout_height="20dp"
         android:background="@color/colorPrimary"
-
         android:layout_above="@+id/noButton"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/yesButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:text="YES"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="34dp"
         android:layout_below="@+id/desc_asc"
         android:layout_toLeftOf="@+id/auxView"
-        android:layout_toStartOf="@+id/auxView" />
+        android:layout_toStartOf="@+id/auxView"
+        android:textSize="18dp"
+        />
 
 
 

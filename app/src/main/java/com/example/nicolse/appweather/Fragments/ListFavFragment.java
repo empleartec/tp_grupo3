@@ -26,19 +26,24 @@ import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask.GetPlacesCallback
 public class ListFavFragment extends Fragment implements GetPlacesCallback {
 
 
+    private List<PlaceYahoo> listFav;
+
     //@Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_list_fav, container, false);
+        renderListPlaces(view);
         return view;
     }
 
     @Override
     public void updateListPlaces(List<PlaceYahoo> listFav) {
-        FavListAdapter favListAdapter = new FavListAdapter(getContext(), listFav);
+        this.listFav = listFav;
+    }
 
-        View view = getView();
+    public void renderListPlaces(View view) {
+        FavListAdapter favListAdapter = new FavListAdapter(getActivity(), listFav);
 
         if(view == null){
             System.out.println("RETORNA UN NULL");

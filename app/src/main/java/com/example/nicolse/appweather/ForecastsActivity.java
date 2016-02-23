@@ -98,27 +98,15 @@ public class ForecastsActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        //WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) previousIntent.getExtras().getParcelable("infoWeather");
+        Set favos = sharedPreferences.getStringSet("FAVORITOS", new HashSet());
+
         WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) getIntent().getExtras().getParcelable("infoWeather");
 
-        //editor.putString(weatherInfoParcelable.getCountry().toString());
-        //editor.putString("Province/State", "Cordoba");
-        //editor.putString("City/County", "Carlos Paz");
-
-        Set favos = new HashSet();
+        //Set favos = new HashSet();
         favos.add(weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString());
-
         editor.putStringSet("FAVORITOS", favos);
 
         editor.apply();
-        /*Boolean flag = editor.commit();
-
-        if (flag == true) {
-            Toast.makeText(getApplicationContext(),
-                    "Preferences saved sucessfully!",
-                    Toast.LENGTH_LONG).show();
-                    }
-        */
 
         /*editor.putString("Country","Argentina");
         editor.putString("Province/State","Cordoba");
@@ -144,24 +132,8 @@ public class ForecastsActivity extends AppCompatActivity {
 
         set2.addAll(list2);
         editor.putStringSet("2", set2);
-
-        //WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) previousIntent.getExtras().getParcelable("infoWeather");
-
-        TextView textCountry = (TextView) findViewById(R.id.txt_forecast_country);
-        TextView textState = (TextView) findViewById(R.id.txt_forecast_state);
-
-        textCountry.setText(weatherInfoParcelable.getCountry());
-        textState.setText(weatherInfoParcelable.getState());
-
-        System.out.println(weatherInfoParcelable.getCountry());
-        System.out.println(weatherInfoParcelable.getState());
-
-        editor.apply();
-
         */
         }
-
-
 
 
     public void toDialogFav(View v) {

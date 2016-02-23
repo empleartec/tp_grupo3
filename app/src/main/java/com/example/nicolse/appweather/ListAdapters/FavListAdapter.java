@@ -1,6 +1,7 @@
 package com.example.nicolse.appweather.ListAdapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nicolse.appweather.AsyncTasks.GetWeatherTask;
-import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
+import com.example.nicolse.appweather.MainMapActivity;
 import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
 import com.example.nicolse.appweather.R;
 
@@ -46,23 +47,29 @@ public class FavListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View layout = LayoutInflater.from(context).inflate(R.layout.list_view_favorites, parent, false);
-        TextView textPlaceCountry = (TextView) layout.findViewById(R.id.fav_country);
-        TextView textPlaceCity = (TextView) layout.findViewById(R.id.fav_city);
-        TextView textPlaceFclName = (TextView) layout.findViewById(R.id.fav_fcl_name);
+        View layout = LayoutInflater.from(context).inflate(R.layout.list_view_favourites, parent, false);
+        TextView textFavCountry = (TextView) layout.findViewById(R.id.fav_country);
+        TextView textFavCity = (TextView) layout.findViewById(R.id.fav_city);
+        TextView textFavFclName = (TextView) layout.findViewById(R.id.fav_fcl_name);
 
         final PlaceYahoo place = (PlaceYahoo) getItem(position);
-        textPlaceCountry.setText(place.getCountry());
-        textPlaceCity.setText(place.getName());
-        textPlaceFclName.setText(String.valueOf(place.getAdmin1() + ", " + place.getAdmin2()));
+        textFavCountry.setText(place.getCountry());
+        textFavCity.setText(place.getName());
+        textFavFclName.setText(String.valueOf(place.getAdmin1() + ", " + place.getAdmin2()));
 
         layout.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
                                           Toast.makeText(context, "Searching location...", Toast.LENGTH_SHORT).show();
-                                          new GetWeatherTask(context).execute(/*"Buenos Aires,AR"*/ place.getName() + "," + place.getCountry());
+                                          //new GetWeatherTask(context).execute(/*"Buenos Aires,AR"*/ place.getName() + "," + place.getCountry());
+                                          Intent intent = new Intent(context, MainMapActivity.class);
+                                          intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                          intent.putExtra("Name", place.getName());
+                                          intent.putExtra("Country", place.getCountry());
+                                          context.startActivity(intent);
                                       }
                                   }
+
         );
 
         return layout;
