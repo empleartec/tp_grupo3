@@ -9,28 +9,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask.GetPlacesCallback;
+import com.example.nicolse.appweather.Fragments.DeleteFavFragment;
 import com.example.nicolse.appweather.Fragments.ListFavFragment;
-import com.example.nicolse.appweather.ListAdapters.FavListAdapter;
 import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
-import com.example.nicolse.appweather.ObjectsFromJSON.ResultWeatherInfo;
 import com.example.nicolse.appweather.entities.WeatherInfoParcelable;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
-//import android.support.annotation.Nullable;
 
 
-public class FavouriteActivity extends AppCompatActivity /*implements GetPlacesCallback*/{
+public class FavouriteActivity extends AppCompatActivity{
 
     private FragmentManager fragmentManager;
     private ListFavFragment listFavFragment;
@@ -45,16 +36,6 @@ public class FavouriteActivity extends AppCompatActivity /*implements GetPlacesC
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-/*
-        fragmentManager = getSupportFragmentManager();
-        listFavFragment = new ListFavFragment();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, listFavFragment);
-        fragmentTransaction.show(listFavFragment);
-        fragmentTransaction.commit();
-        //listFavFragment.updateListPlaces(listFav);
-*/
-
         fragmentManager = getSupportFragmentManager();
         listFavFragment = new ListFavFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -63,7 +44,6 @@ public class FavouriteActivity extends AppCompatActivity /*implements GetPlacesC
         fragmentTransaction.commit();
 
         doLoad();
-
 
     }
 
@@ -74,7 +54,6 @@ public class FavouriteActivity extends AppCompatActivity /*implements GetPlacesC
         Set favos = new HashSet();
         favos = sharedPreferences.getStringSet("FAVORITOS", favos);
         List<PlaceYahoo> listFav = new ArrayList<PlaceYahoo>();
-
 
         if (favos != null) {
             for (Object favo : favos) {
@@ -88,16 +67,26 @@ public class FavouriteActivity extends AppCompatActivity /*implements GetPlacesC
         }
 
     }
+    public void doDelete() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-/*
-    @Override
-    public void updateListPlaces(List<PlaceYahoo> listFav) {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.show(listFavFragment);
-        fragmentTransaction.commit();
-        listFavFragment.updateListPlaces(listFav);
+        Set favos = sharedPreferences.getStringSet("FAVORITOS", new HashSet());
+
+        WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) getIntent().getExtras().getParcelable("infoWeather");
+
+        //Set favos = new HashSet();
+        favos.remove(weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString());
+        //editor.putStringSet("FAVORITOS", favos);
+
+        editor.apply();
     }
-    */
+
+    public void toDeleteFav(View v) {
+        DeleteFavFragment deleteFavFragment = new DeleteFavFragment();
+        deleteFavFragment.show(getSupportFragmentManager(), "Sample fragment");
+    }
+
 }
 
         //System.out.print("myToolbar.getTitle()");

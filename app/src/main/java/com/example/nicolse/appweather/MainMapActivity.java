@@ -1,10 +1,6 @@
 package com.example.nicolse.appweather;
 
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,30 +11,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
-
 import java.io.UnsupportedEncodingException;
-import java.lang.Object;
-
 import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask;
 import com.example.nicolse.appweather.AsyncTasks.GetWeatherTask;
-import com.example.nicolse.appweather.Fragments.DialogFavFragment;
 import com.example.nicolse.appweather.Fragments.ListPlacesFragment;
 import com.example.nicolse.appweather.ObjectsFromJSON.Channel;
 import com.example.nicolse.appweather.ObjectsFromJSON.Condition;
-import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;
-
 import com.example.nicolse.appweather.InfoAdapters.WeatherInfoAdapter;
 import com.example.nicolse.appweather.ObjectsFromJSON.Item;
 import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
 import com.example.nicolse.appweather.ObjectsFromJSON.ResultWeatherInfo;
 import com.example.nicolse.appweather.ObjectsFromJSON.Results;
-import com.example.nicolse.appweather.entities.ForecastParcelable;
 import com.example.nicolse.appweather.entities.WeatherInfoParcelable;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,16 +35,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-//import com.google.android.gms.appindexing.Action;
-//import com.google.android.gms.appindexing.AppIndex;
 
 //clave de la api de google: AIzaSyB27CjmPkuR-YWfYuffcEmK23EcvWAYWZo
 
@@ -100,8 +80,6 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         supportMapFragment.getMapAsync(this);
       //  mapa.setOnMarkerClickListener(this);  //seteamos el listener VER-->onMarkerClick(Marker marker)
 
-
-
         System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||");
         System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||");
         System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||");
@@ -111,7 +89,6 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         fragmentTransaction.add(R.id.fragment_container, listPlacesFragment);
         fragmentTransaction.hide(listPlacesFragment);
         fragmentTransaction.commit();
-
 
         if (Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
             System.out.println("PORTRAIT");
@@ -123,7 +100,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
 /*
-    @Override
+    @Override //para que el intent generado por un favorito busque la ubicacion en el mapa junto a su info de clima
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         String name = intent.getStringExtra("Name");
@@ -161,10 +138,6 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*DialogFavFragment dialogFavFragment = new DialogFavFragment();
-                dialogFavFragment.show(fragmentManager, "Sample Fragment");
-                doSave();
-                doLoad();*/
             }
         });
         searchView.setOnQueryTextListener(
@@ -239,7 +212,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     protected void onResume() {
         super.onResume();
         fragmentManager = getSupportFragmentManager();
-      //  mapa.setOnMarkerClickListener(this);  //seteamos el listener VER-->onMarkerClick(Marker marker)
+        //mapa.setOnMarkerClickListener(this);  //seteamos el listener VER-->onMarkerClick(Marker marker)
         listPlacesFragment = new ListPlacesFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, listPlacesFragment);

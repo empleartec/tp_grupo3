@@ -5,8 +5,8 @@
 
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:src="@drawable/icon_star"
         android:layout_alignTop="@+id/desc_asc"
         android:layout_toStartOf="@+id/desc_asc"
@@ -17,19 +17,20 @@
     <TextView
         android:id="@+id/desc_asc"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Do you want to add this place to favourites?"
+        android:layout_height="25dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:textSize="15dp" />
+        android:layout_marginLeft="66dp"
+        android:layout_marginTop="40dp"
+        android:textSize="12dp"/>
+    <!--android:text="Do you want to add this place to favourites?"-->
 
 
     <Button
         android:id="@+id/noButton"
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_height="45dp"
         android:text="NO"
         android:layout_alignBaseline="@+id/yesButton"
         android:layout_alignBottom="@+id/yesButton"
@@ -41,18 +42,18 @@
 
     <View
         android:id="@+id/auxView"
-        android:layout_width="30dp"
-        android:layout_height="20dp"
-        android:background="@color/colorPrimary"
+        android:layout_width="20dp"
+        android:layout_height="15dp"
+        android:background="@color/colorBackBlack"
         android:layout_above="@+id/noButton"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/yesButton"
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_height="45dp"
         android:text="YES"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/desc_asc"
         android:layout_toLeftOf="@+id/auxView"
         android:layout_toStartOf="@+id/auxView"

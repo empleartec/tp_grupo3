@@ -19,16 +19,16 @@ import com.example.nicolse.appweather.R;
 /**
  * Created by NicolásE on 31/01/2016.
  */
-public class DialogFavFragment extends DialogFragment {
+public class DeleteFavFragment extends DialogFragment {
 
 
-    private ForecastsActivity activity;
+    private FavouriteActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_dialog_fav, container, false);
-        getDialog().setTitle("Adding Favourite Place?");
+        getDialog().setTitle("Delete Favourite Place?");
         getContext();
         Button noButton = (Button) rootView.findViewById(R.id.noButton);
         noButton.setOnClickListener(
@@ -48,10 +48,10 @@ public class DialogFavFragment extends DialogFragment {
                     @Override
                     public void onClick(View v) {
 
-                        activity.doSave();
-                        Toast.makeText(getActivity(), "Place selected was added to \"favourites\"", Toast.LENGTH_LONG).show();
-                        Intent anIntent = new Intent(getContext(), FavouriteActivity.class);
-                        startActivity(anIntent);
+                        activity.doDelete();
+                        Toast.makeText(getActivity(), "Place selected was deleted to \"favourites\"", Toast.LENGTH_LONG).show();
+                        //Intent anIntent = new Intent(getContext(), FavouriteActivity.class);
+                        //startActivity(anIntent);
                         dismiss();
                     }
                 }
@@ -66,9 +66,8 @@ public class DialogFavFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         if (this.activity == null) {
-            this.activity = (ForecastsActivity) activity;
+            this.activity = (FavouriteActivity) activity;
         }
     }
 
 }
-

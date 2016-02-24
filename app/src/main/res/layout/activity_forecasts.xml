@@ -58,11 +58,11 @@
 
         <ImageButton
             android:id="@+id/btn_favourite"
-            android:layout_width="60sp"
-            android:layout_height="60sp"
-            android:layout_gravity="right|top"
+            android:layout_width="37sp"
+            android:layout_height="37sp"
+            android:layout_gravity="right|bottom"
             android:layout_marginRight="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/icon_star"
             android:onClick="toDialogFav"/>
 

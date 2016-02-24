@@ -50,12 +50,12 @@ public class FavListAdapter extends BaseAdapter {
         View layout = LayoutInflater.from(context).inflate(R.layout.list_view_favourites, parent, false);
         TextView textFavCountry = (TextView) layout.findViewById(R.id.fav_country);
         TextView textFavCity = (TextView) layout.findViewById(R.id.fav_city);
-        TextView textFavFclName = (TextView) layout.findViewById(R.id.fav_fcl_name);
+        //TextView textFavFclName = (TextView) layout.findViewById(R.id.fav_fcl_name);
 
         final PlaceYahoo place = (PlaceYahoo) getItem(position);
         textFavCountry.setText(place.getCountry());
         textFavCity.setText(place.getName());
-        textFavFclName.setText(String.valueOf(place.getAdmin1() + ", " + place.getAdmin2()));
+        //textFavFclName.setText(String.valueOf(place.getAdmin1() + ", " + place.getAdmin2()));
 
         layout.setOnClickListener(new View.OnClickListener() {
                                       @Override
@@ -66,6 +66,8 @@ public class FavListAdapter extends BaseAdapter {
                                           intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                           intent.putExtra("Name", place.getName());
                                           intent.putExtra("Country", place.getCountry());
+                                          //intent.putExtra("Province1", place.getAdmin1());
+                                          //intent.putExtra("Province2", place.getAdmin2());
                                           context.startActivity(intent);
                                       }
                                   }
