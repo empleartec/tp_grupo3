@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nicolse.appweather.Fragments.DeleteFavFragment;
 import com.example.nicolse.appweather.Fragments.ForecastFragment;
 import com.example.nicolse.appweather.entities.ForecastParcelable;
 import com.example.nicolse.appweather.entities.WeatherInfoParcelable;
@@ -97,11 +98,8 @@ public class ForecastsActivity extends AppCompatActivity {
     public void doSave() {
         SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
         Set favos = sharedPreferences.getStringSet("FAVORITOS", new HashSet());
-
         WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) getIntent().getExtras().getParcelable("infoWeather");
-
         //Set favos = new HashSet();
         favos.add(weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString());
         editor.putStringSet("FAVORITOS", favos);
@@ -135,6 +133,21 @@ public class ForecastsActivity extends AppCompatActivity {
         */
         }
 
+    public void doDelete() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Set favos = sharedPreferences.getStringSet("FAVORITOS", new HashSet());
+        WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) getIntent().getExtras().getParcelable("infoWeather");
+        favos.remove(weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString());
+        editor.putStringSet("FAVORITOS", favos);
+
+        editor.apply();
+    }
+
+    public void toDeleteFav(View v) {
+        DeleteFavFragment deleteFavFragment = new DeleteFavFragment();
+        deleteFavFragment.show(getSupportFragmentManager(), "Sample fragment");
+    }
 
     public void toDialogFav(View v) {
         DialogFavFragment dialogFavFragment = new DialogFavFragment();

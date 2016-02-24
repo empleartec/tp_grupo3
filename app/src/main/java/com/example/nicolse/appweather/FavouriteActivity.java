@@ -16,6 +16,7 @@ import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
 import com.example.nicolse.appweather.entities.WeatherInfoParcelable;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -67,25 +68,6 @@ public class FavouriteActivity extends AppCompatActivity{
         }
 
     }
-    public void doDelete() {
-        SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        Set favos = sharedPreferences.getStringSet("FAVORITOS", new HashSet());
-
-        WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) getIntent().getExtras().getParcelable("infoWeather");
-
-        //Set favos = new HashSet();
-        favos.remove(weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString());
-        //editor.putStringSet("FAVORITOS", favos);
-
-        editor.apply();
-    }
-
-    public void toDeleteFav(View v) {
-        DeleteFavFragment deleteFavFragment = new DeleteFavFragment();
-        deleteFavFragment.show(getSupportFragmentManager(), "Sample fragment");
-    }
 
 }
 
@@ -108,16 +90,6 @@ public class FavouriteActivity extends AppCompatActivity{
         //System.out.println(weatherInfoParcelable.getCountry());
         */
 
-
-
-
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity_favourite_compat_action_bar, menu);
-        return true;
-    }
-*/
 
 //clave api bruno pc: AIzaSyAVzUn-MJf5tfVRm7G_2HB5eVU6wMBoJZ4
 //clave api bruno noteb: AIzaSyDVt1sawxkq4mcxJeuRkATaCVNJJc-zZtE

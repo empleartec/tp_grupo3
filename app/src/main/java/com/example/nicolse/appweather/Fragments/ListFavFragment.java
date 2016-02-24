@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 
 import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask;
+import com.example.nicolse.appweather.FavouriteActivity;
 import com.example.nicolse.appweather.ListAdapters.FavListAdapter;
 import com.example.nicolse.appweather.ListAdapters.PlacesListAdapter;
 import com.example.nicolse.appweather.ObjectsFromJSON.Geoname;

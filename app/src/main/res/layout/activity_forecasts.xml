@@ -66,6 +66,19 @@
             android:src="@drawable/icon_star"
             android:onClick="toDialogFav"/>
 
+        <Button
+            android:id="@+id/button_delete"
+            android:text="X"
+            android:textColor="@color/colorLineBlack"
+            android:textSize="10dp"
+            android:layout_width="36dp"
+            android:layout_height="34dp"
+            android:onClick="toDeleteFav"
+            android:layout_marginLeft="290dp"
+            android:layout_marginStart="290dp"
+            />
+
+
     </RelativeLayout>
 
 
