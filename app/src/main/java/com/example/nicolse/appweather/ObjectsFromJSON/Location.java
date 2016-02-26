@@ -9,6 +9,8 @@ public class Location {
         String country;
         String region;
 
+    private transient  int woeid;
+
     public String getCity() {
         return city;
     }

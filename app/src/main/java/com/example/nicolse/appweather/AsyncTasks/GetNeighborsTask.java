@@ -3,11 +3,9 @@ package com.example.nicolse.appweather.AsyncTasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
-import com.example.nicolse.appweather.ObjectsFromJSON.PlacesYahoo;
-import com.example.nicolse.appweather.ObjectsFromJSON.ResultPlacesYahoo;
+import com.example.nicolse.appweather.neighbours.NeighbourWeather;
+import com.google.android.gms.maps.model.Marker;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -15,26 +13,71 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by NicolásE on 26/02/2016.
  */
-public class GetNeighborsTask extends AsyncTask<String, String, String> {
+public class GetNeighborsTask extends AsyncTask<String, String,  List<NeighbourWeather>> {
 
 
     private Context context;
-
-    public GetNeighborsTask(Context context){
+    private NeighboursTask callback;
+    private Marker currentMarker;
+    public GetNeighborsTask(Context context,NeighboursTask callback,Marker currentMarker){
         this.context=context;
+        this.callback=callback;
+        this.currentMarker=currentMarker;
     }
 
 
 
     @Override
-    protected String doInBackground(String... woeidString) {
-        String woeid = woeidString[0];
-        String endpoint = "http://where.yahooapis.com/v1/place/"+woeid+"/parent?select=long&format=json&appid=dj0yJmk9UzhtZG5VVHpBSnJxJmQ9WVdrOWJHdERZWEE1TnpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD02NQ--";
+    protected   List<NeighbourWeather> doInBackground(String... woeidString) {
+
+        float lonCenter = Float.valueOf(woeidString[0]);
+        float latCenter = Float.valueOf(woeidString[1]);
+
+        float lonMinus =lonCenter-1.5f;
+        float lonPlus = lonCenter+1.5f;
+        float latMinus = latCenter-1.5f;
+        float latPlus   =  latCenter +1.5f;
+
+        List <String> sectors=new ArrayList<String>();
+
+        sectors.add(searchPlace(lonMinus,latMinus));
+        sectors.add(searchPlace(lonMinus,latPlus));
+        sectors.add(searchPlace(lonPlus,latMinus));
+        sectors.add(searchPlace(lonPlus,latPlus));
+
+
+
+
+        Gson gson = new Gson();
+        List<NeighbourWeather> listNeighbourWeather=new ArrayList<NeighbourWeather>();
+        if (sectors != null) {
+            for (String json: sectors) {
+                NeighbourWeather neighbourWeather =gson.fromJson(json, NeighbourWeather.class);
+                listNeighbourWeather.add(neighbourWeather);
+            }
+        }
+
+
+
+
+        return listNeighbourWeather;
+    }
+
+
+    @Override
+    protected void onPostExecute(  List<NeighbourWeather> listNeighbourWeather) {
+        callback.showNeighbours(listNeighbourWeather,this.currentMarker);
+    }
+
+
+    private String searchPlace( float lon,float lat){
+        String endpoint = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&units=metric&appid=81bfaff12e0252b677b030b6014248ad";
         try {
             URL url = new URL(endpoint);
             URLConnection connection = url.openConnection();
@@ -56,21 +99,29 @@ public class GetNeighborsTask extends AsyncTask<String, String, String> {
         } catch (Exception e) {
             Log.e("Error: ", e.getMessage());
         }
+
         return null;
-    }
-
-
-    @Override
-    protected void onPostExecute(String json) {
-        Gson gson = new Gson();
-
-        System.out.println(json);
-        if (json != null) {
-
-
-
-        }
 
     }
 
+
+
+    public interface NeighboursTask{
+      void showNeighbours( List<NeighbourWeather> listNeighbourWeather,Marker currentMarker);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

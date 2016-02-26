@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nicolse.appweather.FavouriteActivity;
@@ -29,6 +30,8 @@ public class DeleteFavFragment extends DialogFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_dialog_fav, container, false);
         getDialog().setTitle("Delete Favourite Place?");
+        TextView textView = (TextView)rootView.findViewById(R.id.desc_asc);
+        textView.setText("Do you want to delete it?");
         getContext();
         Button noButton = (Button) rootView.findViewById(R.id.noButton);
         noButton.setOnClickListener(
@@ -47,7 +50,6 @@ public class DeleteFavFragment extends DialogFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         activity.doDelete();
                         Toast.makeText(getActivity(), "Place selected was deleted from \"favourites\"", Toast.LENGTH_LONG).show();
                         Intent anIntent = new Intent(getContext(), FavouriteActivity.class);

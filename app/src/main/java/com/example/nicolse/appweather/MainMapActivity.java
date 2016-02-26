@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
+
+import com.example.nicolse.appweather.AsyncTasks.GetNeighborsTask;
 import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask;
 import com.example.nicolse.appweather.AsyncTasks.GetWeatherTask;
 import com.example.nicolse.appweather.Fragments.ListPlacesFragment;
@@ -28,6 +30,8 @@ import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
 import com.example.nicolse.appweather.ObjectsFromJSON.ResultWeatherInfo;
 import com.example.nicolse.appweather.ObjectsFromJSON.Results;
 import com.example.nicolse.appweather.entities.WeatherInfoParcelable;
+import com.example.nicolse.appweather.neighbours.CoordWeatherNeighbour;
+import com.example.nicolse.appweather.neighbours.NeighbourWeather;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,14 +50,33 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 
 //clave de la api de google: AIzaSyB27CjmPkuR-YWfYuffcEmK23EcvWAYWZo
 
-public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback, GetPlacesTask.GetPlacesCallback , OnInfoWindowClickListener, GetWeatherTask.WheaterTask, GoogleMap.OnMarkerClickListener {
+public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback, GetPlacesTask.GetPlacesCallback , OnInfoWindowClickListener, GetWeatherTask.WheaterTask, GoogleMap.OnMarkerClickListener,GetNeighborsTask.NeighboursTask {
     //build gradle(antes): compile 'com.google.android.gms:play-services-maps:8.1.0'
     private GoogleMap mapa;
     private FragmentManager fragmentManager;
     private SupportMapFragment supportMapFragment;
     private ListPlacesFragment listPlacesFragment;
 
+
+
+    final private float a[]= {BitmapDescriptorFactory.HUE_YELLOW,
+            BitmapDescriptorFactory.HUE_AZURE,
+            BitmapDescriptorFactory.HUE_BLUE,
+            BitmapDescriptorFactory.HUE_CYAN,
+            BitmapDescriptorFactory.HUE_GREEN,
+            BitmapDescriptorFactory.HUE_MAGENTA,
+            BitmapDescriptorFactory.HUE_ORANGE,
+            BitmapDescriptorFactory.HUE_RED,
+            BitmapDescriptorFactory.HUE_ROSE,
+            BitmapDescriptorFactory.HUE_VIOLET
+            };
+
+    private int i=0;
+
     private Map<Marker,Channel> conditionXMarker;
+    private Map<Marker,List<Marker>> markerXMarkersNeighbours;
+    private Map<Marker,NeighbourWeather> markerNeighboursXNeighbourWeather;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +91,8 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         mapa.setMyLocationEnabled(true);
         supportMapFragment.getMapAsync(this);
         conditionXMarker=new HashMap<Marker,Channel>();
+        markerXMarkersNeighbours = new HashMap<Marker,List<Marker>>();
+        markerNeighboursXNeighbourWeather = new HashMap<Marker,NeighbourWeather>();
         if (Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
             System.out.println("PORTRAIT");
         }
@@ -75,35 +101,6 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         }
 
         mapa.setOnMarkerClickListener(this);
-
-     /*   FragmentManager fragmentManagerAux;
-        fragmentManagerAux = fragmentManager;
-
-        fragmentManager = getSupportFragmentManager();
-        supportMapFragment = (SupportMapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
-        mapa = supportMapFragment.getMap();
-        mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mapa.setMyLocationEnabled(true);
-        supportMapFragment.getMapAsync(this);
-      //  mapa.setOnMarkerClickListener(this);  //seteamos el listener VER-->onMarkerClick(Marker marker)
-
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||");
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||");
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||");
-
-        listPlacesFragment = new ListPlacesFragment();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, listPlacesFragment);
-        fragmentTransaction.hide(listPlacesFragment);
-        fragmentTransaction.commit();
-
-        if (Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
-            System.out.println("PORTRAIT");
-        }
-        if (Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation) {
-            System.out.println("LANDSCAPE");
-        }
-     */
     }
 
 /*
@@ -184,6 +181,12 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
                 Intent anIntent = new Intent(this, FavouriteActivity.class);
                 startActivity(anIntent);//TODO : change for starActivityResults();
                 break;
+
+
+
+
+
+
             default:
                 break;
         }
@@ -199,17 +202,6 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         condition.setCode("N/A");
         condition.setDate("N/A");
         condition.setTemp("N/A");
-        //mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this, condition));
-        /*LatLng unknown = new LatLng(-31.79765, -65.00312);
-
-        Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_aux);
-        //Resize the bitmap to 150x100 (width x height)
-        Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 60, 60, true);
-        //Loads the resized Bitmap into an ImageView
-        mapa.addMarker(new MarkerOptions().position(unknown).icon(BitmapDescriptorFactory.fromBitmap(bMapScaled)));
-        //mapa.setOn
-        mapa.moveCamera(CameraUpdateFactory.newLatLng(unknown));
-        mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(unknown, 10));*/
     }
 
 
@@ -217,7 +209,6 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     protected void onResume() {
         super.onResume();
         fragmentManager = getSupportFragmentManager();
-        //mapa.setOnMarkerClickListener(this);  //seteamos el listener VER-->onMarkerClick(Marker marker)
         listPlacesFragment = new ListPlacesFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, listPlacesFragment);
@@ -237,13 +228,9 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
 
-/*
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        Toast.makeText(this, marker.getTitle(), Toast.LENGTH_SHORT).show();// display toast
-        return true;
-    }}
-*/
+
+
+
 
     @Override
     protected void onPause() {
@@ -293,17 +280,27 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     public void onInfoWindowClick(Marker marker) {
         Intent intent = new Intent(this, ForecastsActivity.class);
         WeatherInfoParcelable weatherInfoParcelable = new WeatherInfoParcelable();
-        Channel channel = conditionXMarker.get(marker);
-        Condition condition = channel.getItem().getCondition();
-        Location location = channel.getLocation();
-        int iconId = getResources().getIdentifier("drawable/icon_weather_" + condition.getCode(), null, getPackageName());
-        weatherInfoParcelable.setIcon_id(iconId);
-        weatherInfoParcelable.setDate(condition.getDate());
-        weatherInfoParcelable.setCountry(location.getCountry());
-        weatherInfoParcelable.setState(location.getCity());
-        weatherInfoParcelable.setForecasts(channel.getItem().getForecast());
-        intent.putExtra("infoWeather", weatherInfoParcelable);
-        startActivity(intent);
+
+        if(conditionXMarker.containsKey(marker)){
+            Channel channel = conditionXMarker.get(marker);
+            Condition condition = channel.getItem().getCondition();
+            Location location = channel.getLocation();
+            int iconId = getResources().getIdentifier("drawable/icon_weather_" + condition.getCode(), null, getPackageName());
+            weatherInfoParcelable.setIcon_id(iconId);
+            weatherInfoParcelable.setDate(condition.getDate());
+            weatherInfoParcelable.setCountry(location.getCountry());
+            weatherInfoParcelable.setState(location.getCity());
+            weatherInfoParcelable.setForecasts(channel.getItem().getForecast());
+            intent.putExtra("infoWeather", weatherInfoParcelable);
+            startActivity(intent);
+        }
+        else{
+
+            i = ++i<a.length?i:0;
+            marker.setIcon(BitmapDescriptorFactory
+                    .defaultMarker(a[i]));
+        }
+
     }
 
     @Override
@@ -343,8 +340,7 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         mapa.moveCamera(CameraUpdateFactory.newLatLng(unknown));
         mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(unknown, 10));
         mapa.setOnInfoWindowClickListener(this);
-        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this, conditionXMarker));
-
+        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this, conditionXMarker,markerNeighboursXNeighbourWeather));
     }
 
 
@@ -357,9 +353,60 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Toast.makeText(this,"HolaCapo",Toast.LENGTH_SHORT).show();
+
+        if(conditionXMarker.containsKey(marker)){
+            Channel channel=conditionXMarker.get(marker);
+            String lon =channel.getItem().getLongitude();
+            String lat=channel.getItem().getLatitude();
+            new GetNeighborsTask(this,this,marker).execute(lon,lat);
+        }
+        else{
+            System.out.println("Es un marcador de vecino");
+        }
+
+//        GetNeighborsTask.execute();
         return false;
     }
+
+
+    @Override
+    public void showNeighbours(List<NeighbourWeather> listNeighbourWeather,Marker currentMarker) {
+
+        List<Marker> listOfMarkers;
+        if (!markerXMarkersNeighbours.containsKey(currentMarker)) {
+            listOfMarkers=new ArrayList<Marker>();
+            for (NeighbourWeather neighbour : listNeighbourWeather) {
+                CoordWeatherNeighbour coord = neighbour.getCoord();
+                Marker anMarker = mapa.addMarker(new MarkerOptions().position(new LatLng(coord.getLat(), coord.getLon())).title("Hello world"));
+                markerNeighboursXNeighbourWeather.put(anMarker,neighbour);
+                listOfMarkers.add(anMarker);
+            }
+            markerXMarkersNeighbours.put(currentMarker,listOfMarkers);
+        }
+        else{
+            //si ya existia el marker con sus vecinos
+             listOfMarkers= markerXMarkersNeighbours.get(currentMarker);
+
+           if(listOfMarkers.get(0).isVisible()){//si al menos un marker esta visible se debe borrar
+
+               for (Marker anMarker: listOfMarkers) {
+                   anMarker.setVisible(false);
+               }
+           }
+            else {
+               for (Marker anMarker: listOfMarkers) {
+                   anMarker.setVisible(true);
+               }
+
+           }
+
+
+        }
+
+
+    }
+
+
 }
 
 
