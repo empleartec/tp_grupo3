@@ -60,7 +60,9 @@ public class PlacesListAdapter extends BaseAdapter {
                                       @Override
                                       public void onClick(View v) {
                                           Toast.makeText(context, "Searching location...", Toast.LENGTH_SHORT).show();
-                                          new GetWeatherTask(context).execute(/*"Buenos Aires,AR"*/ place.getName() + "," + place.getCountry());
+                                          System.out.println("++++++++++++++++++++++++++++++" + place.getWoeid());
+                                          //new GetWeatherTask(context).execute(String.valueOf(place.getWoeid()));
+                                          new GetWeatherTask(context).execute(place.getName() + "," + place.getCountry());
                                       }
                                   }
         );

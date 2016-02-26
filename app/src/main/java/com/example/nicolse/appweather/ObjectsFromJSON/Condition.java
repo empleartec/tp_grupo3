@@ -42,4 +42,5 @@ public class Condition {
         this.text = text;
     }
 
+
 }

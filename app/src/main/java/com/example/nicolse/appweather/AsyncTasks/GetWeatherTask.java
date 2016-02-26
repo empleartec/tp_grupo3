@@ -54,8 +54,9 @@ public class GetWeatherTask extends AsyncTask<String, String, String> {
 
         String location = locations[0];
         String YQL = String.format("select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%s\")and u='c'", location);
+        //String endpoint = String.format("https://query.yahooapis.com/v1/public/yql?q=%s&format=json", Uri.encode(YQL));
+        //String YQL = String.format( "select * from weather.forecast where woeid =%s and u='c'", location);
         String endpoint = String.format("https://query.yahooapis.com/v1/public/yql?q=%s&format=json", Uri.encode(YQL));
-
         try {
             URL url = new URL(endpoint);
             URLConnection connection = url.openConnection();
@@ -88,6 +89,7 @@ public class GetWeatherTask extends AsyncTask<String, String, String> {
     protected void onPostExecute(String json) {
         Gson gson = new Gson();
         ResultWeatherInfo resultWeatherInfo = gson.fromJson(json, ResultWeatherInfo.class);
+        System.out.println("<TITULO>::::" + resultWeatherInfo.getQuery().getResults().getChannel().getItem().getTitle());
         context.updateWeatherInMap(resultWeatherInfo);//aca muestro el mapa seteando, se debe fijar si existe el clima para cierta ciudad
         System.out.println("<TITULO>::::" + resultWeatherInfo.getQuery().getResults().getChannel().getItem().getTitle());
 

@@ -64,6 +64,7 @@ public class FavListAdapter extends BaseAdapter {
                                           //new GetWeatherTask(context).execute(/*"Buenos Aires,AR"*/ place.getName() + "," + place.getCountry());
                                           Intent intent = new Intent(context, MainMapActivity.class);
                                           intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                          //intent.putExtra("woeid", String.valueOf(place.getWoeid()));
                                           intent.putExtra("Name", place.getName());
                                           intent.putExtra("Country", place.getCountry());
                                           //intent.putExtra("Province1", place.getAdmin1());
