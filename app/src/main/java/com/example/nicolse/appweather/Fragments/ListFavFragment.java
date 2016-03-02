@@ -44,7 +44,7 @@ public class ListFavFragment extends Fragment implements GetPlacesCallback {
     }
 
     public void renderListPlaces(View view) {
-        FavListAdapter favListAdapter = new FavListAdapter(getActivity(), listFav);
+        FavListAdapter favListAdapter = new FavListAdapter(getActivity(), listFav,(FavouriteActivity) getActivity());
 
         if(view == null){
             System.out.println("RETORNA UN NULL");

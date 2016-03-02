@@ -8,11 +8,8 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:src="@drawable/icon_star"
-        android:layout_alignTop="@+id/desc_asc"
-        android:layout_toStartOf="@+id/desc_asc"
-        android:layout_alignBottom="@+id/desc_asc"
-        android:layout_toLeftOf="@+id/desc_asc" />
-
+        android:layout_marginLeft="114dp"
+        android:layout_marginTop="30dp"/>
 
     <TextView
         android:id="@+id/desc_asc"
@@ -40,7 +37,6 @@
         android:layout_toEndOf="@+id/auxView"
         android:textSize="18dp"
         />
-
 
     <View
         android:id="@+id/auxView"

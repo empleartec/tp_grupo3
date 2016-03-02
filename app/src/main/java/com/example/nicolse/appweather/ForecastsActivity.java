@@ -103,53 +103,28 @@ public class ForecastsActivity extends AppCompatActivity {
         //Set favos = new HashSet();
         favos.add(weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString());
         editor.putStringSet("FAVORITOS", favos);
-
         editor.apply();
 
-        /*editor.putString("Country","Argentina");
-        editor.putString("Province/State","Cordoba");
-        editor.putString("City/County","Nono");
-        editor.putFloat("Latitude", -31.79765f);
-        editor.putFloat("Longitude", -65.00312f);*/
-
-       /*
-        Set<String> set1 = new HashSet<String>();
-        List<String> list1 = new ArrayList<String>();
-        list1.add("nombre:Nico");
-        list1.add("country:Argentina");
-        list1.add("Number:4321");
-
-        Set<String> set2 = new HashSet<String>();
-        List<String> list2 = new ArrayList<String>();
-        list2.add("nombre:Pepetonio");
-        list2.add("country:España");
-        list2.add("Number:4423");
-
-        set1.addAll(list1);
-        editor.putStringSet("1", set1);
-
-        set2.addAll(list2);
-        editor.putStringSet("2", set2);
-        */
         }
 
-    public void doDelete() {
+    public void doDeleteFav() {
         SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Set favos = sharedPreferences.getStringSet("FAVORITOS", new HashSet());
         WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) getIntent().getExtras().getParcelable("infoWeather");
-        favos.remove(weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString());
+        String nameAndCountry = weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString();
+        favos.remove(nameAndCountry);
         editor.putStringSet("FAVORITOS", favos);
 
         editor.apply();
     }
 
-    public void toDeleteFav(View v) {
+    public void toDeleteFav(View view) {
         DeleteFavFragment deleteFavFragment = new DeleteFavFragment();
         deleteFavFragment.show(getSupportFragmentManager(), "Sample fragment");
     }
 
-    public void toDialogFav(View v) {
+    public void toDialogFav(View view) {
         DialogFavFragment dialogFavFragment = new DialogFavFragment();
         dialogFavFragment.show(getSupportFragmentManager(), "Sample fragment");
     }

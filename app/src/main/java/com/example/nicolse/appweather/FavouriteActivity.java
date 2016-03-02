@@ -68,27 +68,51 @@ public class FavouriteActivity extends AppCompatActivity{
         }
 
     }
+/*
+    public void toDeleteFav(View view) {
+        DeleteFavFragment deleteFavFragment = new DeleteFavFragment();
+        //deleteFavFragment.viewEx = view;
+        //view.getTag();
+        deleteFavFragment.show(this.getSupportFragmentManager(), "Sample fragment");
+    }
+
+
+    public void doDeleteFav(View view) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //Set favos = new HashSet();
+        Set favos = sharedPreferences.getStringSet("FAVORITOS", new HashSet());
+        //List<PlaceYahoo> listFav = new ArrayList<PlaceYahoo>();
+
+
+        String nameAndCountry = (String)view.getTag();
+        //view.setTag(R.id.tag_city, tagPlace);
+        //favos.remove(nameAndCountry);
+
+
+        if (favos != null) {
+            //throw new java.util.ConcurrentModificationException() {
+            try{
+                for (Object favo : favos) {
+                    if (favo == nameAndCountry){
+                        favos.remove(favo);
+                        break;
+                    }
+                }
+            }
+            catch (ConcurrentModificationException e){
+                e.printStackTrace();
+            }
+            //editor.putStringSet("FAVORITOS", favos);
+            //editor.apply();
+            //listFavFragment.updateListPlaces(listFav);
+        }
+
+    }*/
 
 }
 
-        //System.out.print("myToolbar.getTitle()");
-
-        /*
-        Map<String, Set<String>> keys = (Map<String, Set<String>>) sharedPreferences.getAll();
-
-        for (Map.Entry<String, Set<String>> entry : keys.entrySet()) {
-            Set<String> set = entry.getValue();
-            System.out.println("Key:" + entry.getKey());
-            System.out.println("Values:");
-            //System.out.println("Country:" + entry.getCountry());
-            for (String s : set) {
-                System.out.println(s);
-            }
-            //Log.d("map values::::::", entry.getKey() + ": " + entry.getValue().toString());
-        }
-        //System.out.println(weatherInfoParcelable.getDate());
-        //System.out.println(weatherInfoParcelable.getCountry());
-        */
 
 
 //clave api bruno pc: AIzaSyAVzUn-MJf5tfVRm7G_2HB5eVU6wMBoJZ4

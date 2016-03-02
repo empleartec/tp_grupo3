@@ -26,7 +26,7 @@
         android:textColor="@color/colorYellow"
         />
 
-    <!--
+<!--
     <Button
         android:id="@+id/button_delete"
         android:text="X"
@@ -34,9 +34,8 @@
         android:textSize="10dp"
         android:layout_width="36dp"
         android:layout_height="34dp"
-        android:onClick="toDeleteFav"
-        android:layout_marginLeft="290dp"
-        android:layout_marginStart="290dp"
+        android:layout_marginLeft="240dp"
+        android:layout_marginStart="240dp"
         />
 
 
@@ -54,5 +53,4 @@
         android:textSize="12dp"
         />
 -->
-
 </RelativeLayout>

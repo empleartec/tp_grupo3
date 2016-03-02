@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nicolse.appweather.AsyncTasks.GetWeatherTask;
+import com.example.nicolse.appweather.FavouriteActivity;
+import com.example.nicolse.appweather.Fragments.DeleteFavFragment;
 import com.example.nicolse.appweather.MainMapActivity;
 import com.example.nicolse.appweather.ObjectsFromJSON.PlaceYahoo;
 import com.example.nicolse.appweather.R;
@@ -25,9 +28,13 @@ public class FavListAdapter extends BaseAdapter {
 
     private List<PlaceYahoo> listFav;
 
-    public FavListAdapter(Context context, List<PlaceYahoo> listFav){
+    private FavouriteActivity activity;
+    //private View viewEx;
+
+    public FavListAdapter(Context context, List<PlaceYahoo> listFav, FavouriteActivity activity){
         this.context = context;
         this.listFav = listFav;
+        this.activity = activity;
     }
 
     @Override
@@ -46,15 +53,29 @@ public class FavListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View layout = LayoutInflater.from(context).inflate(R.layout.list_view_favourites, parent, false);
         TextView textFavCountry = (TextView) layout.findViewById(R.id.fav_country);
         TextView textFavCity = (TextView) layout.findViewById(R.id.fav_city);
+        Button buttonDelete = (Button) layout.findViewById(R.id.button_delete);
         //TextView textFavFclName = (TextView) layout.findViewById(R.id.fav_fcl_name);
 
         final PlaceYahoo place = (PlaceYahoo) getItem(position);
         textFavCountry.setText(place.getCountry());
         textFavCity.setText(place.getName());
+        final String tagPlace = place.getName().toString() + ", " + place.getCountry().toString();
+
+        /*
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                view.setTag(R.id.tag_city, tagPlace);
+                //activity.toDeleteFav(view);
+                toDeleteFav(view);
+            }
+        });*/
+
         //textFavFclName.setText(String.valueOf(place.getAdmin1() + ", " + place.getAdmin2()));
 
         layout.setOnClickListener(new View.OnClickListener() {
@@ -77,4 +98,13 @@ public class FavListAdapter extends BaseAdapter {
 
         return layout;
     }
+
+    /*
+    public void toDeleteFav(View view) {
+        DeleteFavFragment deleteFavFragment = new DeleteFavFragment();
+        deleteFavFragment.viewEx = view;
+        //view.getTag();
+        deleteFavFragment.show(activity.getSupportFragmentManager(), "Sample fragment");
+    }
+    */
 }

@@ -27,12 +27,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".FavouriteActivity"
-            android:label="@string/title_activity_favourite">
+            android:label="@string/title_activity_favourite"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMapActivity" />
         </activity>
-        <activity android:name=".ForecastsActivity">
+        <activity android:name=".ForecastsActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMapActivity" />

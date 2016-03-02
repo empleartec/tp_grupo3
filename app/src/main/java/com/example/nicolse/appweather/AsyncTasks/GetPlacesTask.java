@@ -83,7 +83,7 @@ public class GetPlacesTask extends AsyncTask<String, String, String>  {
         ////intentamos hacer una clase a partir del json
         Gson gson = new Gson();
 
-        System.out.println(json);
+        //System.out.println(json);
 
         if (json != null) {
 
