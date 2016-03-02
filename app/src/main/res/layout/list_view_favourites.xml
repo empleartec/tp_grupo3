@@ -17,11 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:text="none"
-        android:layout_marginLeft="60dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginStart="130dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/fav_country"
-        android:layout_toEndOf="@+id/fav_country"
         android:textSize="15dp"
         android:textColor="@color/colorYellow"
         />
