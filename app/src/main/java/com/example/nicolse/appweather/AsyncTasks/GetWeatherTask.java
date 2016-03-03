@@ -89,9 +89,9 @@ public class GetWeatherTask extends AsyncTask<String, String, String> {
     protected void onPostExecute(String json) {
         Gson gson = new Gson();
         ResultWeatherInfo resultWeatherInfo = gson.fromJson(json, ResultWeatherInfo.class);
-        System.out.println("<TITULO>::::" + resultWeatherInfo.getQuery().getResults().getChannel().getItem().getTitle());
+//        System.out.println("<TITULO>::::" + resultWeatherInfo.getQuery().getResults().getChannel().getItem().getTitle());
         context.updateWeatherInMap(resultWeatherInfo);//aca muestro el mapa seteando, se debe fijar si existe el clima para cierta ciudad
-        System.out.println("<TITULO>::::" + resultWeatherInfo.getQuery().getResults().getChannel().getItem().getTitle());
+//        System.out.println("<TITULO>::::" + resultWeatherInfo.getQuery().getResults().getChannel().getItem().getTitle());
 
     }
 }

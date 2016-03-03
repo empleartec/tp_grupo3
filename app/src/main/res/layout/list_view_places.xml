@@ -18,14 +18,17 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:text="none"
-        android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginStart="130dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/place_country"
-        android:layout_toEndOf="@+id/place_country"
         android:textColor="@color/colorWhite"
         android:textSize="15dp"
         />
+
+    <!--
+        android:layout_toRightOf="@+id/place_country"
+        android:layout_toEndOf="@+id/place_country"
+    -->
 
     <TextView
         android:id="@+id/place_fcl_name"

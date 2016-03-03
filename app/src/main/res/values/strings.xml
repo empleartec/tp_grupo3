@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppWeather</string>
+    <string name="app_name">MapWeather</string>
     <string name="none">N/Ay</string>
     <string name="title_activity_favourite">Favourites</string>
     <string name="dialogFavourite">Do you want to add this place to favourites?</string>

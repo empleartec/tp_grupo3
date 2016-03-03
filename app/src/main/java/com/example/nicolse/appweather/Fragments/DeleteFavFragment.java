@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nicolse.appweather.FavouriteActivity;
+import com.example.nicolse.appweather.ListAdapters.FavListAdapter;
 import com.example.nicolse.appweather.MainMapActivity;
 import com.example.nicolse.appweather.ForecastsActivity;
 import com.example.nicolse.appweather.R;
@@ -23,7 +24,9 @@ import com.example.nicolse.appweather.R;
 public class DeleteFavFragment extends DialogFragment {
 
 
+
     private FavouriteActivity activity;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +53,8 @@ public class DeleteFavFragment extends DialogFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        activity.doDelete();
+                        //activity.doDeleteFav(viewEx);
+                        activity.doDeleteFav();
                         Toast.makeText(getActivity(), "Place selected was deleted from \"favourites\"", Toast.LENGTH_LONG).show();
                         //Intent anIntent = new Intent(getContext(), FavouriteActivity.class);
                         //startActivity(anIntent);
@@ -69,6 +73,7 @@ public class DeleteFavFragment extends DialogFragment {
         super.onAttach(activity);
         if (this.activity == null) {
             this.activity = (FavouriteActivity) activity;
+
         }
     }
 

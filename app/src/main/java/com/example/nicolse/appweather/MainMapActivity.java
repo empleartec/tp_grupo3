@@ -307,40 +307,46 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
     public void updateWeatherInMap(ResultWeatherInfo resultWeatherInfo) {
 
 
-        if(resultWeatherInfo==null){
+        if(resultWeatherInfo == null){
             System.out.println("Is null");
         }
 
-        Results results = resultWeatherInfo.getQuery().getResults();
-        Channel channel = results.getChannel();
-        Item item = channel.getItem();
-        Condition condition = item.getCondition();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.hide(listPlacesFragment);
-        fragmentTransaction.show(supportMapFragment);
-        fragmentTransaction.commit();
-        Toast.makeText(this, "Latitude:" + item.getLatitude() + " Longitude:" + item.getLongitude(), Toast.LENGTH_SHORT).show();
-        LatLng unknown = new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
+        try {
+            Results results = resultWeatherInfo.getQuery().getResults();
+            Channel channel = results.getChannel();
+            Item item = channel.getItem();
+            Condition condition = item.getCondition();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.hide(listPlacesFragment);
+            fragmentTransaction.show(supportMapFragment);
+            fragmentTransaction.commit();
+            Toast.makeText(this, "Latitude:" + item.getLatitude() + " Longitude:" + item.getLongitude(), Toast.LENGTH_SHORT).show();
+            LatLng unknown = new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
 
+            int iconId = getResources().getIdentifier("drawable/icon_weather_" + condition.getCode(), null, getPackageName());
+            if (iconId == 0) {
+                condition.setCode("na");
+                iconId = getResources().getIdentifier("drawable/icon_weather_" + condition.getCode(), null, getPackageName());
+            }
+            Bitmap bMap = BitmapFactory.decodeResource(getResources(), iconId);
 
+            //Resize the bitmap to 150x100 (width x height)
+            Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 60, 60, true);
+            //Loads the resized Bitmap into an ImageView
 
-        int iconId = getResources().getIdentifier("drawable/icon_weather_"+ condition.getCode() , null, getPackageName());
-        if(iconId==0){
-            condition.setCode("na");
-             iconId = getResources().getIdentifier("drawable/icon_weather_"+ condition.getCode() , null, getPackageName());
+            Marker marker = mapa.addMarker(new MarkerOptions().position(unknown).icon(BitmapDescriptorFactory.fromBitmap(bMapScaled)));
+            this.addConditionToMarker(marker, channel);
+            mapa.moveCamera(CameraUpdateFactory.newLatLng(unknown));
+            mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(unknown, 10));
+            mapa.setOnInfoWindowClickListener(this);
+            mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this, conditionXMarker, markerNeighboursXNeighbourWeather));
         }
-        Bitmap bMap = BitmapFactory.decodeResource(getResources(), iconId);
+        catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(this, "ERROR: check your network connection", Toast.LENGTH_LONG).show();
+        }
 
-        //Resize the bitmap to 150x100 (width x height)
-        Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 60, 60, true);
-        //Loads the resized Bitmap into an ImageView
 
-        Marker marker=mapa.addMarker(new MarkerOptions().position(unknown).icon(BitmapDescriptorFactory.fromBitmap(bMapScaled)));
-        this.addConditionToMarker(marker,channel);
-        mapa.moveCamera(CameraUpdateFactory.newLatLng(unknown));
-        mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(unknown, 10));
-        mapa.setOnInfoWindowClickListener(this);
-        mapa.setInfoWindowAdapter(new WeatherInfoAdapter(this, conditionXMarker,markerNeighboursXNeighbourWeather));
     }
 
 
