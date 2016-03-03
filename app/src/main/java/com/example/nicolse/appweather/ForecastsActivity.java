@@ -140,7 +140,6 @@ public class ForecastsActivity extends AppCompatActivity {
         WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) getIntent().getExtras().getParcelable("infoWeather");
         favos.remove(weatherInfoParcelable.getCountry().toString() + ", " + weatherInfoParcelable.getState().toString());
         editor.putStringSet("FAVORITOS", favos);
-
         editor.apply();
     }
 

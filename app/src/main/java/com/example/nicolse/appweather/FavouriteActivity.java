@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.nicolse.appweather.Fragments.DeleteFavFragment;
 import com.example.nicolse.appweather.Fragments.ListFavFragment;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class FavouriteActivity extends AppCompatActivity{
+public class FavouriteActivity extends AppCompatActivity implements ListFavFragment.FavouritesPersistance{
 
     private FragmentManager fragmentManager;
     private ListFavFragment listFavFragment;
@@ -37,21 +38,19 @@ public class FavouriteActivity extends AppCompatActivity{
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         fragmentManager = getSupportFragmentManager();
-        listFavFragment = new ListFavFragment();
+         listFavFragment=(ListFavFragment)fragmentManager.findFragmentById(R.id.favouriteFragment);
+        /*listFavFragment = new ListFavFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, listFavFragment);
         fragmentTransaction.show(listFavFragment);
-        fragmentTransaction.commit();
-
-        doLoad();
-
+        fragmentTransaction.commit();*/
+       // doLoad();
     }
 
-
-    public void doLoad() {
+    public List<PlaceYahoo>  loadFavourite() {
         SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
-
         Set favos = new HashSet();
         favos = sharedPreferences.getStringSet("FAVORITOS", favos);
         List<PlaceYahoo> listFav = new ArrayList<PlaceYahoo>();
@@ -64,9 +63,42 @@ public class FavouriteActivity extends AppCompatActivity{
                 py.setName(f[1]);
                 listFav.add(py);
             }
-            listFavFragment.updateListPlaces(listFav);
         }
+        return listFav;
+    }
 
+
+    public List<PlaceYahoo>  deleteFavourite() {
+        List<PlaceYahoo> listFav = new ArrayList<PlaceYahoo>();
+        return  listFav;
+    }
+
+
+
+//todo:aca se tiene que sacar el lugar de la lista de favoritos
+    public void doDelete() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SAVE_INFO", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Set favos = sharedPreferences.getStringSet("FAVORITOS", new HashSet());
+       // WeatherInfoParcelable weatherInfoParcelable = (WeatherInfoParcelable) getIntent().getExtras().getParcelable("infoWeather");
+        if(placeToDelete!=null) {
+            favos.remove(placeToDelete);
+        }
+        System.out.println(loadFavourite().size());
+        editor.putStringSet("FAVORITOS", favos);
+        editor.apply();
+        listFavFragment.updateList();
+    }
+
+
+    private String placeToDelete;
+    //esto hace cuando se aprieta la crucesita en cualquier item de la lista
+    public void toDeleteFav(View v) {
+        placeToDelete= (String)v.getTag();
+        Toast.makeText(this,placeToDelete,Toast.LENGTH_SHORT).show();
+        System.out.println(placeToDelete);
+        DeleteFavFragment deleteFavFragment = new DeleteFavFragment();
+        deleteFavFragment.show(getSupportFragmentManager(), "Sample fragment");
     }
 
 }

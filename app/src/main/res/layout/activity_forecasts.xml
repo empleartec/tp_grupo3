@@ -56,28 +56,16 @@
             />
 
 
-        <ImageButton
-            android:id="@+id/btn_favourite"
-            android:layout_width="37sp"
-            android:layout_height="37sp"
-            android:layout_gravity="right|bottom"
-            android:layout_marginRight="100dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/icon_star"
-            android:onClick="toDialogFav"/>
 
         <Button
-            android:id="@+id/button_delete"
-            android:text="X"
-            android:textColor="@color/colorLineBlack"
-            android:textSize="10dp"
-            android:layout_width="36dp"
-            android:layout_height="34dp"
-            android:onClick="toDeleteFav"
-            android:layout_marginLeft="290dp"
-            android:layout_marginStart="290dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ButtonTest"
+            android:text="add to favourites"
+            android:onClick="toDialogFav"
+            android:layout_below="@id/txt_forecast_state"
+            android:layout_centerInParent="true"
             />
-
 
     </RelativeLayout>
 

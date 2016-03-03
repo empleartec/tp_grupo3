@@ -1,5 +1,7 @@
 package com.example.nicolse.appweather.Fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 //import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,36 +26,37 @@ import com.example.nicolse.appweather.AsyncTasks.GetPlacesTask.GetPlacesCallback
 /**
  * Created by NicolásE on 29/01/2016.
  */
-public class ListFavFragment extends Fragment implements GetPlacesCallback {
+public class ListFavFragment extends Fragment {
+
+    private FavouriteActivity context;
+
+    public interface FavouritesPersistance{
+        List<PlaceYahoo> loadFavourite();
+         List<PlaceYahoo> deleteFavourite();
+    }
 
 
-    private List<PlaceYahoo> listFav;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = (FavouriteActivity)context;
+    }
 
-    //@Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_list_fav, container, false);
-        renderListPlaces(view);
+        List<PlaceYahoo> listFav=context.loadFavourite();
+        FavListAdapter favListAdapter = new FavListAdapter(getActivity(), listFav);
+        ListView miLista = (ListView) view.findViewById(R.id.list_view_favourites);
+        miLista.setAdapter(favListAdapter);
         return view;
     }
 
-    @Override
-    public void updateListPlaces(List<PlaceYahoo> listFav) {
-        this.listFav = listFav;
-    }
-
-    public void renderListPlaces(View view) {
+    public void updateList(){
+        List<PlaceYahoo> listFav=context.loadFavourite();
         FavListAdapter favListAdapter = new FavListAdapter(getActivity(), listFav);
-
-        if(view == null){
-            System.out.println("RETORNA UN NULL");
-            //TODO : cuando se vuelve del otra activity al main como que se debe volver a instanciar el fragment o la lista
-        }
-
-        ListView miLista = (ListView) view.findViewById(R.id.list_view_favourites);
+        ListView miLista = (ListView) getView().findViewById(R.id.list_view_favourites);
         miLista.setAdapter(favListAdapter);
     }
-
-
+    
 }

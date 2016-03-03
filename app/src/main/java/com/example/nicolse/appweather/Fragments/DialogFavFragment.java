@@ -61,7 +61,6 @@ public class DialogFavFragment extends DialogFragment {
         return rootView;
     }
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

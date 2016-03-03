@@ -22,13 +22,21 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <RelativeLayout
+
+    <!--<RelativeLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbarFavourite">
+    </RelativeLayout>-->
 
-    </RelativeLayout>
+    <fragment android:name="com.example.nicolse.appweather.Fragments.ListFavFragment"
+        android:id="@+id/favouriteFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarFavourite"
+        />
+
 
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,11 +51,14 @@ public class FavListAdapter extends BaseAdapter {
         View layout = LayoutInflater.from(context).inflate(R.layout.list_view_favourites, parent, false);
         TextView textFavCountry = (TextView) layout.findViewById(R.id.fav_country);
         TextView textFavCity = (TextView) layout.findViewById(R.id.fav_city);
+        Button deleteButton = (Button) layout.findViewById(R.id.button_delete_fav);
         //TextView textFavFclName = (TextView) layout.findViewById(R.id.fav_fcl_name);
 
         final PlaceYahoo place = (PlaceYahoo) getItem(position);
         textFavCountry.setText(place.getCountry());
         textFavCity.setText(place.getName());
+        deleteButton.setTag(place.getCountry()+","+place.getName());
+
         //textFavFclName.setText(String.valueOf(place.getAdmin1() + ", " + place.getAdmin2()));
 
         layout.setOnClickListener(new View.OnClickListener() {

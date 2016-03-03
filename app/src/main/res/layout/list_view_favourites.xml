@@ -26,9 +26,9 @@
         android:textColor="@color/colorYellow"
         />
 
-    <!--
+
     <Button
-        android:id="@+id/button_delete"
+        android:id="@+id/button_delete_fav"
         android:text="X"
         android:textColor="@color/colorLineBlack"
         android:textSize="10dp"
@@ -40,19 +40,6 @@
         />
 
 
-    <TextView
-        android:id="@+id/fav_fcl_name"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:text="none"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="15dp"
-        android:textSize="12dp"
-        />
--->
+
 
 </RelativeLayout>
